@@ -7,7 +7,9 @@
     "postinstall": "npx tailwindcss build -c ./tailwind.config.js -o ./styles/tailwind.css"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "firebase": "^10.4.0",
+    "firebase-admin": "^11.11.0",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
