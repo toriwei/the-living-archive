@@ -1,14 +1,15 @@
 const admin = require('firebase-admin')
-const serviceAccount = require('./the-living-archive-eefa1-firebase-adminsdk-esgtt-acc30ee9a5.json')
 const data = require('./archiveMetadata.json')
-
+const path = require('path')
+require('dotenv').config({ path: path.join(__dirname, '../../', '.env') })
 // TO-DO: probably have to re-think structure. only checks if key (image title) exists,
 // not if the data is different updated. also won't need to check entire database every
 // time.
 
 // Initialize the app with a service account, granting admin privileges
+const account = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(account),
 })
 
 // Initialize Firestore

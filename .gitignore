@@ -34,3 +34,4 @@ yarn-error.log*
 
 # data
 /pages/firebase/archiveMetadata.json
+.env
