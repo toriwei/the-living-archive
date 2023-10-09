@@ -1,11 +1,26 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { storage } from './firebase/firebaseConfig'
-import { ref, listAll, getDownloadURL } from 'firebase/storage'
-import metadata from './firebase/archiveMetadata.json'
+import { ref, listAll, getDownloadURL, getMetadata } from 'firebase/storage'
+import Modal from './Modal'
 
-function ImageGallery({ onImageClick }) {
+function ImageGallery() {
   const [imageUrls, setImageUrls] = useState([])
+  const [selectedImg, setSelectedImg] = useState(null)
+  const [selectedName, setSelectedName] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false) // Add modal state
+
+  function openModal(imageUrl, fileName) {
+    setSelectedImg(imageUrl)
+    setSelectedName(fileName)
+    setIsModalOpen(true)
+  }
+
+  function closeModal() {
+    setSelectedImg(null)
+    setSelectedName(null)
+    setIsModalOpen(false)
+  }
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -16,8 +31,10 @@ function ImageGallery({ onImageClick }) {
         const urls = await Promise.all(
           imagesList.items.map(async (item) => {
             const url = await getDownloadURL(item)
-            console.log(url)
-            return url
+            const metadata = await getMetadata(item)
+            const fileName = metadata.name
+
+            return { url, fileName }
           })
         )
         setImageUrls(urls)
@@ -32,14 +49,24 @@ function ImageGallery({ onImageClick }) {
   return (
     <div className='flex justify-center items-center'>
       {imageUrls.map((url, index) => (
-        <img
-          className='archiveItem w-80'
-          key={index}
-          src={url}
-          alt={`Image ${index}`}
-          onClick={() => onImageClick(url)}
-        />
+        <div key={url.fileName}>
+          <img
+            className='archiveItem w-80'
+            key={index}
+            src={url.url}
+            alt={`Image ${index}`}
+            onClick={() => openModal(url.url, url.fileName)}
+          />
+          <p>{url.fileName}</p>
+        </div>
       ))}
+      {isModalOpen && (
+        <Modal
+          imageUrl={selectedImg}
+          onClose={closeModal}
+          file={selectedName}
+        />
+      )}
     </div>
   )
 }
