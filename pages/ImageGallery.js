@@ -5,10 +5,10 @@ import { ref, listAll, getDownloadURL, getMetadata } from 'firebase/storage'
 import Modal from './Modal'
 
 function ImageGallery() {
-  const [imageUrls, setImageUrls] = useState([])
+  const [imageData, setImageData] = useState([])
   const [selectedImg, setSelectedImg] = useState(null)
   const [selectedName, setSelectedName] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false) // Add modal state
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   function openModal(imageUrl, fileName) {
     setSelectedImg(imageUrl)
@@ -28,7 +28,7 @@ function ImageGallery() {
         const archiveRef = ref(storage, 'archive')
         const imagesList = await listAll(archiveRef)
 
-        const urls = await Promise.all(
+        const images = await Promise.all(
           imagesList.items.map(async (item) => {
             const url = await getDownloadURL(item)
             const metadata = await getMetadata(item)
@@ -37,7 +37,7 @@ function ImageGallery() {
             return { url, fileName }
           })
         )
-        setImageUrls(urls)
+        setImageData(images)
       } catch (error) {
         console.error('Error fetching images from Firebase Storage:', error)
       }
@@ -48,16 +48,16 @@ function ImageGallery() {
 
   return (
     <div className='flex justify-center items-center'>
-      {imageUrls.map((url, index) => (
-        <div key={url.fileName}>
+      {imageData.map((image, index) => (
+        <div key={image.fileName}>
           <img
             className='archiveItem w-80'
             key={index}
-            src={url.url}
+            src={image.url}
             alt={`Image ${index}`}
-            onClick={() => openModal(url.url, url.fileName)}
+            onClick={() => openModal(image.url, image.fileName)}
           />
-          <p>{url.fileName}</p>
+          <p>{image.fileName}</p>
         </div>
       ))}
       {isModalOpen && (
