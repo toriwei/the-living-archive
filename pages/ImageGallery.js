@@ -1,11 +1,26 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { storage } from './firebase/firebaseConfig'
-import { ref, listAll, getDownloadURL } from 'firebase/storage'
-import metadata from './firebase/archiveMetadata.json'
+import { ref, listAll, getDownloadURL, getMetadata } from 'firebase/storage'
+import Modal from './Modal'
 
-function ImageGallery({ onImageClick }) {
-  const [imageUrls, setImageUrls] = useState([])
+function ImageGallery() {
+  const [imageData, setImageData] = useState([])
+  const [selectedImg, setSelectedImg] = useState(null)
+  const [selectedName, setSelectedName] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  function openModal(imageUrl, fileName) {
+    setSelectedImg(imageUrl)
+    setSelectedName(fileName)
+    setIsModalOpen(true)
+  }
+
+  function closeModal() {
+    setSelectedImg(null)
+    setSelectedName(null)
+    setIsModalOpen(false)
+  }
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -13,14 +28,16 @@ function ImageGallery({ onImageClick }) {
         const archiveRef = ref(storage, 'archive')
         const imagesList = await listAll(archiveRef)
 
-        const urls = await Promise.all(
+        const images = await Promise.all(
           imagesList.items.map(async (item) => {
             const url = await getDownloadURL(item)
-            console.log(url)
-            return url
+            const metadata = await getMetadata(item)
+            const fileName = metadata.name
+
+            return { url, fileName }
           })
         )
-        setImageUrls(urls)
+        setImageData(images)
       } catch (error) {
         console.error('Error fetching images from Firebase Storage:', error)
       }
@@ -31,15 +48,25 @@ function ImageGallery({ onImageClick }) {
 
   return (
     <div className='flex justify-center items-center'>
-      {imageUrls.map((url, index) => (
-        <img
-          className='archiveItem w-80'
-          key={index}
-          src={url}
-          alt={`Image ${index}`}
-          onClick={() => onImageClick(url)}
-        />
+      {imageData.map((image, index) => (
+        <div key={image.fileName}>
+          <img
+            className='archiveItem w-80'
+            key={index}
+            src={image.url}
+            alt={`Image ${index}`}
+            onClick={() => openModal(image.url, image.fileName)}
+          />
+          <p>{image.fileName}</p>
+        </div>
       ))}
+      {isModalOpen && (
+        <Modal
+          imageUrl={selectedImg}
+          onClose={closeModal}
+          file={selectedName}
+        />
+      )}
     </div>
   )
 }
