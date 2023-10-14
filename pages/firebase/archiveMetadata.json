@@ -15,7 +15,7 @@
     ]
   },
   "Lions_Pride_1976_46": {
-    "source": "Yearbooks",
+    "source_type": "Yearbooks",
     "date": "1976",
     "section": "Activities",
     "LMU_location": "Alumni Mall",
@@ -44,7 +44,7 @@
     }
   },
   "Lions_Pride_1976_47": {
-    "source": "Yearbooks",
+    "source_type": "Yearbooks",
     "date": "1976",
     "section": "Activities",
     "LMU_location": "Alumni Mall",
