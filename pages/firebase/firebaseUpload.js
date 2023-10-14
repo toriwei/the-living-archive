@@ -1,6 +1,6 @@
-// TO-DO: probably have to re-think structure. only checks if key (image title) exists,
-// not if the data is different updated. also won't need to check entire database every
-// time.
+// NOTE: if object is updated so that a specific attribute is no longer being
+// used, it must be manually deleted from firebase
+
 const data = require('./archiveMetadata.json')
 const db = require('./firebaseAdminConfig')
 const collectionRef = db.collection('data') // Firestore collection name
@@ -15,11 +15,32 @@ async function addDataToFirestore(data) {
 
     if (!docSnapshot.exists) {
       await docRef.set(newData)
-      console.log(`Data added for ${documentID} successfully`)
+      console.log(`Data ADDED for ${documentID} successfully`)
     } else {
-      console.log(`Data for ${documentID} already exists.`)
+      const existingData = docSnapshot.data()
+      if (!deepEquals(docSnapshot.data(), newData)) {
+        console.log(docSnapshot.data())
+        console.log(newData)
+        await docRef.update(newData)
+        console.log(`Data UPDATED for ${documentID}`)
+      } else {
+        console.log(`Data SAME for ${documentID}. No updated made.`)
+      }
     }
   }
+}
+
+function deepEquals(existingData, newData) {
+  if (typeof existingData !== 'object') {
+    return existingData === newData
+  }
+
+  return (
+    Object.keys(existingData).length === Object.keys(newData).length &&
+    Object.keys(existingData).every((key) =>
+      deepEquals(existingData[key], newData[key])
+    )
+  )
 }
 
 addDataToFirestore(data)

@@ -8,11 +8,15 @@ import { collection, getDocs, doc, getDoc } from 'firebase/firestore'
 
 function ItemData({ name }) {
   const [itemData, setItemData] = useState([])
+
+  const newspaperKeys = ['title', 'section', 'date', 'page']
+
+  function getNewspaperData(data) {}
+
   useEffect(() => {
     console.log('hello from item data')
 
     // TO DO: logic to determine if we need info just one doc (ex: for modal) or all (ex: showing titles in gallery view)
-
     const fetchMetadata = async () => {
       try {
         console.log(name)
@@ -32,7 +36,9 @@ function ItemData({ name }) {
           console.log('No such document!')
         }
 
-        // getting data for all docs --> future implementation
+        // set object based on item source (newspaper, yearbook)
+
+        // getting data for all docs --> future implementation --> could separate to different file
 
         // getDocs(collectionRef)
         //   .then((querySnapshot) => {
@@ -52,9 +58,19 @@ function ItemData({ name }) {
   }, [])
 
   return (
-    <div className='text-ellipsis'>
+    <div>
       <p>item data - logging </p>
-      <p className='text-ellipsis'>{JSON.stringify(itemData)}</p>
+      {itemData.source_type == 'Newspapers'
+        ? newspaperKeys.map((key) =>
+            key in itemData ? (
+              <p key={key}>
+                <span>{key}:</span> <span>{itemData[key]}</span>
+              </p>
+            ) : (
+              ''
+            )
+          )
+        : ''}
     </div>
   )
 }

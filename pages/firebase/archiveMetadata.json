@@ -1,6 +1,8 @@
 {
   "Loyolan_9_16_1992": {
-    "source": "Newspapers",
+    "source_type": "Newspapers",
+    "source_name": "The Los Angeles Loyolan",
+    "page": 2,
     "date": "09/16/1992",
     "section": "The 'Real' World as reported in the L.A. Times",
     "title": "Gays Alter Dynamics of Political Race",
