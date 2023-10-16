@@ -9,14 +9,6 @@ import { collection, doc, getDoc } from 'firebase/firestore'
 function ItemData({ name }) {
   const [itemData, setItemData] = useState([])
 
-  const newspaperKeys = ['title', 'section', 'date', 'page']
-  const yearbookKeys = [
-    'date',
-    'description',
-    'source_metadata["Title"]',
-    'LMU_location',
-  ]
-
   useEffect(() => {
     console.log('hello from item data')
 
@@ -60,38 +52,50 @@ function ItemData({ name }) {
   }, [])
 
   function displayData() {
-    let keys = []
+    let newObj = {}
     switch (itemData.source_type) {
       case 'Newspapers':
-        keys = newspaperKeys
+        newObj = {
+          title: itemData.title,
+          date: itemData.date,
+          page: itemData.page,
+          section: itemData.section,
+        }
         break
       case 'Yearbooks':
-        keys = yearbookKeys
+        newObj = {
+          title: itemData.source_metadata.Title,
+          date: itemData.date,
+          page: itemData.page,
+          location: itemData.LMU_location,
+          description: itemData.description,
+        }
         break
     }
 
-    // TODO: customize/change label to something different than the key, ex: source_metadata["Title"] should be just "Title"
-    return keys.map((key) => {
-      if (key in itemData || key.startsWith('source_metadata')) {
-        console.log(itemData[key])
+    const elements = Object.keys(newObj).map((key) => {
+      if (key !== 'title') {
         return (
           <p key={key}>
-            <span>{key}:</span>{' '}
-            <span>
-              {key.startsWith('source_metadata')
-                ? itemData['source_metadata'][
-                    `${key.substring(key.indexOf('[') + 2, key.length - 2)}`
-                  ]
-                : itemData[key]}
-            </span>
+            <span>{key}:</span> <span>{newObj[key]}</span>
           </p>
         )
-      } else {
-        console.log(key)
       }
+      return null
     })
+
+    return (
+      <div>
+        <p className='font-bold'>{newObj.title}</p>
+        {elements}
+      </div>
+    )
   }
-  return <div>{displayData()}</div>
+  return (
+    <div>
+      <div className='content'>{displayData()}</div>
+    </div>
+  )
 }
 
 export default ItemData
