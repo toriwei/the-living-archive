@@ -8,14 +8,7 @@ import { collection, doc, getDoc } from 'firebase/firestore'
 
 function ItemData({ name }) {
   const [itemData, setItemData] = useState([])
-
-  const newspaperKeys = ['title', 'section', 'date', 'page']
-  const yearbookKeys = [
-    'date',
-    'description',
-    'source_metadata["Title"]',
-    'LMU_location',
-  ]
+  const [title, setTitle] = useState()
 
   useEffect(() => {
     console.log('hello from item data')
@@ -36,6 +29,7 @@ function ItemData({ name }) {
         if (docSnap.exists()) {
           console.log('Document data:', docSnap.data())
           setItemData(docSnap.data())
+          console.log(docSnap.data().source_type)
         } else {
           console.log('No such document!')
         }
@@ -60,38 +54,41 @@ function ItemData({ name }) {
   }, [])
 
   function displayData() {
-    let keys = []
+    let newObj = {}
     switch (itemData.source_type) {
       case 'Newspapers':
-        keys = newspaperKeys
+        newObj = {
+          title: itemData.title,
+          section: itemData.section,
+          date: itemData.date,
+          page: itemData.page,
+        }
         break
       case 'Yearbooks':
-        keys = yearbookKeys
+        newObj = {
+          date: itemData.date,
+          description: itemData.description,
+          title: itemData.source_metadata.Title,
+          location: itemData.LMU_location,
+          page: itemData.page,
+        }
         break
     }
 
-    // TODO: customize/change label to something different than the key, ex: source_metadata["Title"] should be just "Title"
-    return keys.map((key) => {
-      if (key in itemData || key.startsWith('source_metadata')) {
-        console.log(itemData[key])
-        return (
-          <p key={key}>
-            <span>{key}:</span>{' '}
-            <span>
-              {key.startsWith('source_metadata')
-                ? itemData['source_metadata'][
-                    `${key.substring(key.indexOf('[') + 2, key.length - 2)}`
-                  ]
-                : itemData[key]}
-            </span>
-          </p>
-        )
-      } else {
-        console.log(key)
-      }
+    return Object.keys(newObj).map((key) => {
+      return (
+        <p key={key}>
+          <span>{key}:</span> <span>{newObj[key]}</span>
+        </p>
+      )
     })
   }
-  return <div>{displayData()}</div>
+  displayData()
+  return (
+    <div>
+      <div className='content'>{displayData()}</div>
+    </div>
+  )
 }
 
 export default ItemData
