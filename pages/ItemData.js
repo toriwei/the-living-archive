@@ -8,7 +8,6 @@ import { collection, doc, getDoc } from 'firebase/firestore'
 
 function ItemData({ name }) {
   const [itemData, setItemData] = useState([])
-  const [title, setTitle] = useState()
 
   useEffect(() => {
     console.log('hello from item data')
@@ -29,7 +28,6 @@ function ItemData({ name }) {
         if (docSnap.exists()) {
           console.log('Document data:', docSnap.data())
           setItemData(docSnap.data())
-          console.log(docSnap.data().source_type)
         } else {
           console.log('No such document!')
         }
@@ -59,31 +57,40 @@ function ItemData({ name }) {
       case 'Newspapers':
         newObj = {
           title: itemData.title,
-          section: itemData.section,
           date: itemData.date,
           page: itemData.page,
+          section: itemData.section,
         }
         break
       case 'Yearbooks':
         newObj = {
-          date: itemData.date,
-          description: itemData.description,
           title: itemData.source_metadata.Title,
-          location: itemData.LMU_location,
+          date: itemData.date,
           page: itemData.page,
+          location: itemData.LMU_location,
+          description: itemData.description,
         }
         break
     }
 
-    return Object.keys(newObj).map((key) => {
-      return (
-        <p key={key}>
-          <span>{key}:</span> <span>{newObj[key]}</span>
-        </p>
-      )
+    const elements = Object.keys(newObj).map((key) => {
+      if (key !== 'title') {
+        return (
+          <p key={key}>
+            <span>{key}:</span> <span>{newObj[key]}</span>
+          </p>
+        )
+      }
+      return null
     })
+
+    return (
+      <div>
+        <p className='font-bold'>{newObj.title}</p>
+        {elements}
+      </div>
+    )
   }
-  displayData()
   return (
     <div>
       <div className='content'>{displayData()}</div>
