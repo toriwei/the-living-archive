@@ -1,7 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { storage } from './firebase/firebaseConfig'
+import { storage, firestore } from './firebase/firebaseConfig'
 import { ref, listAll, getDownloadURL, getMetadata } from 'firebase/storage'
+import { doc, getDoc } from 'firebase/firestore'
+
 import Modal from './Modal'
 
 function ImageGallery() {
@@ -34,7 +36,35 @@ function ImageGallery() {
             const metadata = await getMetadata(item)
             const fileName = metadata.name
 
-            return { url, fileName }
+            const docRef = doc(
+              firestore,
+              'data',
+              fileName.substring(0, fileName.indexOf('.'))
+            )
+            const docSnap = await getDoc(docRef)
+            const itemData = docSnap.data()
+            let newObj = {}
+            switch (itemData.source_type) {
+              case 'Newspapers':
+                newObj = {
+                  title: itemData.title,
+                  section: itemData.section,
+                }
+                break
+              case 'Yearbooks':
+                newObj = {
+                  title: itemData.source_metadata.Title,
+                  location: itemData.LMU_location,
+                  description: itemData.description,
+                }
+                break
+            }
+            return {
+              url,
+              fileName,
+              title: newObj.title,
+              obj: itemData,
+            }
           })
         )
         setImageData(images)
@@ -48,6 +78,7 @@ function ImageGallery() {
 
   return (
     <div className='flex justify-center items-center'>
+      {/* {console.log(imageData)} */}
       {imageData.map((image, index) => (
         <div key={image.fileName}>
           <img
@@ -57,7 +88,7 @@ function ImageGallery() {
             alt={`Image ${index}`}
             onClick={() => openModal(image.url, image.fileName)}
           />
-          <p>{image.fileName}</p>
+          <span>{image.title}</span>
         </div>
       ))}
       {isModalOpen && (
