@@ -15,10 +15,6 @@ function ItemData({ name }) {
     // TO DO: logic to determine if we need info just one doc (ex: for modal) or all (ex: showing titles in gallery view)
     const fetchMetadata = async () => {
       try {
-        console.log(name)
-        const collectionRef = collection(firestore, 'data')
-        console.log(collectionRef)
-        console.log(name)
         const docRef = doc(
           firestore,
           'data',
@@ -31,19 +27,6 @@ function ItemData({ name }) {
         } else {
           console.log('No such document!')
         }
-
-        // getting data for all docs --> future implementation --> could separate to different file
-
-        // getDocs(collectionRef)
-        //   .then((querySnapshot) => {
-        //     querySnapshot.forEach((doc) => {
-        //       const data = doc.data()
-        //       console.log('Document data:', data)
-        //     })
-        //   })
-        //   .catch((error) => {
-        //     console.error('Error getting documents:', error)
-        //   })
       } catch (error) {
         console.error('Error fetching item data from Cloud Firestore', error)
       }

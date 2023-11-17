@@ -78,7 +78,7 @@ function ImageGallery() {
 
   return (
     <div className='flex justify-center items-center'>
-      {console.log(imageData)}
+      {/* {console.log(imageData)} */}
       {imageData.map((image, index) => (
         <div key={image.fileName}>
           <img
