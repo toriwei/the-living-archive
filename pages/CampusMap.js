@@ -1,10 +1,12 @@
-import { useMemo, useEffect } from 'react'
+import { useMemo, useEffect, useState } from 'react'
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
-import { Loader } from '@googlemaps/js-api-loader'
+
+import { fetchImageData } from './ImageGallery'
+
 export default function CampusMap() {
-  const loader = new Loader({
-    apiKey: 'AIzaSyDM1aAcM26w2DIgRPtZJ1aNZGYbRhkuNCc',
-  })
+  const [imageData, setImageData] = useState([])
+  const [markerData, setMarkerData] = useState([])
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyDM1aAcM26w2DIgRPtZJ1aNZGYbRhkuNCc',
   })
@@ -30,6 +32,22 @@ export default function CampusMap() {
     ],
   }
 
+  useEffect(() => {
+    const locationData = async () => {
+      const images = await fetchImageData()
+      setImageData(images)
+      console.log(images)
+      const markers = images.filter(
+        (image) =>
+          image.obj.hasOwnProperty('lat') && image.obj.hasOwnProperty('long')
+      )
+      console.log(markers)
+      setMarkerData(markers)
+    }
+
+    locationData()
+  }, [])
+
   if (!isLoaded) {
     // You can return a loading indicator or any other content while the map is loading
     return <div>Loading...</div>
@@ -42,7 +60,17 @@ export default function CampusMap() {
         options={mapOptions}
         center={center}
         zoom={17}
-      ></GoogleMap>
+      >
+        {markerData.map((image) => (
+          <Marker
+            key={image.fileName}
+            position={{ lat: image.obj.lat, lng: image.obj.long }}
+          />
+        ))}
+      </GoogleMap>
+
+      {markerData.map((image) => console.log(image.obj.lat))}
+      {markerData.map((image) => console.log(image.obj.long))}
     </div>
   )
 }
