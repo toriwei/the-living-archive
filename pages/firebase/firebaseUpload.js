@@ -57,7 +57,7 @@ async function setLatitudeAndLongitude(newData) {
   try {
     const response = await axios.get(apiUrl, {
       params: {
-        address: `${location}, Loyola Marymount University`,
+        address: `${newData.LMU_location}, Loyola Marymount University`,
         key: apiKey,
       },
     })
@@ -67,6 +67,10 @@ async function setLatitudeAndLongitude(newData) {
       const { lat, lng } = result.geometry.location
       newData.lat = lat
       newData.long = lng
+      console.log(newData.LMU_location)
+      // console.log(result)
+      // console.log(lat)
+      // console.log(lng)
       return newData
     } else {
       console.log('Unable to retrieve coordinates')
