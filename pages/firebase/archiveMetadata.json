@@ -73,5 +73,37 @@
       "Download Date": "October 04 2023",
       "Publisher and Resource Name": "William H. Hannon Library"
     }
+  },
+  "Loyolan_11_17_1999": {
+    "source_type": "Newspapers",
+    "date": "11/17/1999",
+    "page": 12,
+    "section": "Features",
+    "title": "The Witness",
+    "author": "Lauren Hirigoyen",
+    "author_title": "Asst. Features Editor",
+    "LMU_location": "Laband Art Gallery",
+    "tags": ["AIDS", "art"]
+  },
+  "Loyolan_11_4_1998_p8": {
+    "source_type": "Newspapers",
+    "date": "11/4/1998",
+    "page": 8,
+    "section": "Features",
+    "title": "A Rallying Call for Compassion",
+    "author": "Paula Haifley",
+    "author_title": "Asst. Section Editor",
+    "tags": ["hate crime", "homophobia", "religion", "rally"]
+  },
+  "Loyolan_11_4_1998_p9": {
+    "source_type": "Newspapers",
+    "date": "11/4/1998",
+    "page": 9,
+    "section": "Features",
+    "title": "Homosexuality and the Academic Right",
+    "author": "Jasmine Marshall",
+    "author_title": "Section Editor",
+    "LMU_location": "Pereira Hall",
+    "tags": ["hate crime", "homophobia", "AGLA"]
   }
 }

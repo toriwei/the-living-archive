@@ -1,5 +1,10 @@
 import { useMemo, useEffect, useState } from 'react'
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+} from '@react-google-maps/api'
 
 import { fetchImageData } from './ImageGallery'
 
@@ -53,6 +58,7 @@ export default function CampusMap() {
     return <div>Loading...</div>
   }
 
+  // next step: add marker cluster (in addition to offset)
   return (
     <div className='flex justify-center items-center h-screen'>
       <GoogleMap
@@ -64,7 +70,10 @@ export default function CampusMap() {
         {markerData.map((image) => (
           <Marker
             key={image.fileName}
-            position={{ lat: image.obj.lat, lng: image.obj.long }}
+            position={{
+              lat: image.obj.lat + Math.random() / 23000,
+              lng: image.obj.long + Math.random() / 23000,
+            }}
           />
         ))}
       </GoogleMap>
