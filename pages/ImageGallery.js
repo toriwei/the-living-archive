@@ -62,13 +62,13 @@ export async function fetchImageData() {
     return []
   }
 }
-
 function ImageGallery() {
   const [imageData, setImageData] = useState([])
   const [selectedImg, setSelectedImg] = useState(null)
   const [selectedName, setSelectedName] = useState(null)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   function openModal(imageUrl, fileName, index) {
     setSelectedImg(imageUrl)
@@ -83,11 +83,20 @@ function ImageGallery() {
     setIsModalOpen(false)
   }
 
+  const [searchQueryTemp, setSearchQueryTemp] = useState('')
+
+  const handleSearchChange = (e) => {
+    setSearchQueryTemp(e.target.value)
+  }
+
+  const handleSearch = () => {
+    setSearchQuery(searchQueryTemp)
+  }
+
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const images = await fetchImageData()
-        console.log(images)
         setImageData(images)
       } catch (error) {
         console.error('Error fetching images from Firebase Storage:', error)
@@ -97,24 +106,42 @@ function ImageGallery() {
     fetchImages()
   }, [])
 
+  // Filter images based on the search query in any property of image.obj
+  const filteredImages = imageData.filter((image) =>
+    Object.values(image.obj).some((value) =>
+      value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  )
+
   return (
-    <div className='grid grid-cols-4 gap-4'>
-      {console.log(imageData)}
-      {imageData.map((image, index) => (
-        <div key={image.fileName} className='relative'>
-          <img
-            className='archiveItem w-full h-80 min-h-80 object-cover'
-            key={index}
-            src={image.url}
-            alt={`Image ${index}`}
-            onClick={() => openModal(image.url, image.fileName, index)}
-          />
-          <span>{image.title}</span>
-        </div>
-      ))}
+    <div>
+      <input
+        type='text'
+        placeholder='Search images...'
+        value={searchQueryTemp}
+        onChange={handleSearchChange}
+      />
+
+      <button onClick={handleSearch}>Search</button>
+
+      <div className='grid grid-cols-4 gap-4'>
+        {filteredImages.map((image, index) => (
+          <div key={image.fileName} className='relative'>
+            <img
+              className='archiveItem w-full h-80 min-h-80 object-cover'
+              key={index}
+              src={image.url}
+              alt={`Image ${index}`}
+              onClick={() => openModal(image.url, image.fileName, index)}
+            />
+            <span>{image.title}</span>
+          </div>
+        ))}
+      </div>
+
       {isModalOpen && (
         <Modal
-          imageData={imageData}
+          imageData={filteredImages}
           currentIndex={selectedImageIndex}
           onClose={closeModal}
           file={selectedName}

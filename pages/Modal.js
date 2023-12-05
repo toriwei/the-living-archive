@@ -1,4 +1,3 @@
-// Modal.js
 import React, { useState, useEffect } from 'react'
 import ItemData from './ItemData'
 import FullscreenImage from './FullscreenImage'

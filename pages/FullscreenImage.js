@@ -1,4 +1,3 @@
-// FullscreenImage.js
 import React from 'react'
 
 function FullscreenImage({ imageUrl, onCloseFullscreen }) {
