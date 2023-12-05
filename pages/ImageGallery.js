@@ -67,11 +67,13 @@ function ImageGallery() {
   const [imageData, setImageData] = useState([])
   const [selectedImg, setSelectedImg] = useState(null)
   const [selectedName, setSelectedName] = useState(null)
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  function openModal(imageUrl, fileName) {
+  function openModal(imageUrl, fileName, index) {
     setSelectedImg(imageUrl)
     setSelectedName(fileName)
+    setSelectedImageIndex(index)
     setIsModalOpen(true)
   }
 
@@ -105,14 +107,15 @@ function ImageGallery() {
             key={index}
             src={image.url}
             alt={`Image ${index}`}
-            onClick={() => openModal(image.url, image.fileName)}
+            onClick={() => openModal(image.url, image.fileName, index)}
           />
           <span>{image.title}</span>
         </div>
       ))}
       {isModalOpen && (
         <Modal
-          imageUrl={selectedImg}
+          imageData={imageData}
+          currentIndex={selectedImageIndex}
           onClose={closeModal}
           file={selectedName}
         />
