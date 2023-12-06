@@ -46,8 +46,35 @@ export default function CampusMap() {
         (image) =>
           image.obj.hasOwnProperty('lat') && image.obj.hasOwnProperty('long')
       )
+      console.log('MARKERS')
       console.log(markers)
-      setMarkerData(markers)
+      const groupedMarkers = markers.reduce((acc, image) => {
+        const location = image.obj.LMU_location
+        if (!acc[location]) {
+          acc[location] = []
+        }
+        acc[location].push(image)
+        return acc
+      }, {})
+      console.log('group')
+      console.log(groupedMarkers)
+      const clusteredMarkers = Object.values(groupedMarkers)
+
+      const adjustedMarkers = clusteredMarkers.map((cluster) => {
+        let offset = 0
+        return cluster.map((image) => {
+          offset += 0.0001
+          return {
+            ...image,
+            position: {
+              lat: image.obj.lat + offset,
+              lng: image.obj.long + offset,
+            },
+          }
+        })
+      })
+
+      setMarkerData(adjustedMarkers.flat())
     }
 
     locationData()
