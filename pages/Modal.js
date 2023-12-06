@@ -3,6 +3,9 @@ import ItemData from './ItemData'
 import FullscreenImage from './FullscreenImage'
 
 function Modal({ imageData, currentIndex, onClose, file }) {
+  if (!imageData || imageData.length === 0) {
+    return <div>Loading...</div>
+  }
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(currentIndex)
 
