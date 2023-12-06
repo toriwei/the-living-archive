@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { storage, firestore } from './firebase/firebaseConfig'
+import { storage, firestore } from '../firebase/firebaseConfig'
 import { ref, listAll, getDownloadURL, getMetadata } from 'firebase/storage'
 import { doc, getDoc } from 'firebase/firestore'
 

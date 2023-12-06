@@ -3,7 +3,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 
-import { firestore } from './firebase/firebaseConfig'
+import { firestore } from '../firebase/firebaseConfig'
 import { collection, doc, getDoc } from 'firebase/firestore'
 
 function ItemData({ name }) {
