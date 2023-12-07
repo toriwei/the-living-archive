@@ -25,6 +25,7 @@ async function addDataToFirestore(data) {
         if (newData.hasOwnProperty('LMU_location')) {
           // TO DO: currently resets lat/long and newData every time existingData != newData
           // but should only reset if the lat/long is not there or needs to be updated
+          console.log('hello')
           newData = await setLatitudeAndLongitude(newData)
         }
 

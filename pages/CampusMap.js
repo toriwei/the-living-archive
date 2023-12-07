@@ -49,6 +49,7 @@ export default function CampusMap() {
       console.log('MARKERS')
       console.log(markers)
       const groupedMarkers = markers.reduce((acc, image) => {
+        console.log(acc)
         const location = image.obj.LMU_location
         if (!acc[location]) {
           acc[location] = []

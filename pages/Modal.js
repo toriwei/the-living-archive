@@ -8,6 +8,9 @@ function Modal({ imageData, currentIndex, onClose, file }) {
   }
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(currentIndex)
+  const [currentFile, setCurrentFile] = useState(file)
+  console.log(imageData[currentImageIndex].fileName)
+  console.log(imageData[currentImageIndex])
 
   const openFullscreen = () => {
     setIsFullscreen(true)
@@ -21,16 +24,25 @@ function Modal({ imageData, currentIndex, onClose, file }) {
     const previousIndex =
       (currentImageIndex - 1 + imageData.length) % imageData.length
     setCurrentImageIndex(previousIndex)
+    console.log('===PREV====')
+    console.log(imageData[previousIndex].fileName)
+    console.log('====')
+    setCurrentFile(imageData[previousIndex].fileName)
   }
 
   const goToNext = () => {
     const nextIndex = (currentImageIndex + 1) % imageData.length
     setCurrentImageIndex(nextIndex)
+    console.log('NEXT')
+    console.log(imageData[nextIndex].fileName)
+    console.log('====')
+    setCurrentFile(imageData[nextIndex].fileName)
   }
 
   useEffect(() => {
     setCurrentImageIndex(currentIndex)
-  }, [currentIndex])
+    setCurrentFile(file)
+  }, [currentIndex, file])
 
   return (
     <div className='fixed inset-0 flex items-center justify-center z-50'>
@@ -60,7 +72,7 @@ function Modal({ imageData, currentIndex, onClose, file }) {
             </span>
           </div>
           <div className='content pl-4 pr-10 w-1/2 overflow-auto'>
-            <ItemData name={file} />
+            <ItemData data={imageData[currentImageIndex]} />
           </div>
         </div>
       </div>
