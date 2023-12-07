@@ -1,6 +1,6 @@
 const admin = require('firebase-admin')
 const path = require('path')
-require('dotenv').config({ path: path.join(__dirname, '../../', '.env') })
+require('dotenv').config({ path: path.join(__dirname, '../', '.env') })
 
 // Initialize the app with a service account, granting admin privileges
 const account = process.env.FIREBASE_SERVICE_ACCOUNT

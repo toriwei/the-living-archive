@@ -1,47 +1,22 @@
 'use client'
 
 import React from 'react'
-import { useEffect, useState } from 'react'
 
-import { firestore } from '../firebase/firebaseConfig'
-import { collection, doc, getDoc } from 'firebase/firestore'
-
-function ItemData({ name }) {
-  const [itemData, setItemData] = useState([])
-
-  useEffect(() => {
-    console.log('hello from item data')
-
-    // TO DO: logic to determine if we need info just one doc (ex: for modal) or all (ex: showing titles in gallery view)
-    const fetchMetadata = async () => {
-      try {
-        const docRef = doc(
-          firestore,
-          'data',
-          name.substring(0, name.indexOf('.'))
-        )
-        const docSnap = await getDoc(docRef)
-        if (docSnap.exists()) {
-          console.log('Document data:', docSnap.data())
-          setItemData(docSnap.data())
-        } else {
-          console.log('No such document!')
-        }
-      } catch (error) {
-        console.error('Error fetching item data from Cloud Firestore', error)
-      }
-    }
-    fetchMetadata()
-  }, [])
+function ItemData({ data }) {
+  if (!data || !data.obj) {
+    return <div>No data available</div>
+  }
 
   function displayData() {
     let newObj = {}
+    let itemData = data.obj
     switch (itemData.source_type) {
       case 'Newspapers':
         newObj = {
           title: itemData.title,
           date: itemData.date,
           page: itemData.page,
+          location: itemData.LMU_location,
           section: itemData.section,
         }
         break
