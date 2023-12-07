@@ -3,6 +3,10 @@
 import React from 'react'
 
 function ItemData({ data }) {
+  if (!data || !data.obj) {
+    return <div>No data available</div>
+  }
+
   function displayData() {
     let newObj = {}
     let itemData = data.obj
