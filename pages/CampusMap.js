@@ -4,13 +4,14 @@ import {
   useLoadScript,
   Marker,
   InfoWindow,
+  MarkerClusterer,
 } from '@react-google-maps/api'
 
 import { fetchImageData } from './ImageGallery'
 
 export default function CampusMap() {
-  const [imageData, setImageData] = useState([])
   const [markerData, setMarkerData] = useState([])
+  const [hoveredMarker, setHoveredMarker] = useState([])
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyDM1aAcM26w2DIgRPtZJ1aNZGYbRhkuNCc',
@@ -29,64 +30,61 @@ export default function CampusMap() {
         elementType: 'labels.icon',
         stylers: [{ visibility: 'off' }],
       },
-      // {
-      //   featureType: 'poi',
-      //   elementType: 'labels.icon',
-      //   stylers: [{ visibility: 'off' }],
-      // },
     ],
   }
+
+  const markerClustererOptions = {
+    gridSize: 7,
+    zoomOnClick: true,
+  }
+
+  const handleMarkerHover = (image) => {
+    console.log('Marker hover:', image)
+  }
+
+  const getRandomOffset = () => Math.random() / 20000
 
   useEffect(() => {
     const locationData = async () => {
       const images = await fetchImageData()
-      setImageData(images)
-      console.log(images)
-      const markers = images.filter(
+
+      const validMarkers = images.filter(
         (image) =>
           image.obj.hasOwnProperty('lat') && image.obj.hasOwnProperty('long')
       )
-      console.log('MARKERS')
-      console.log(markers)
-      const groupedMarkers = markers.reduce((acc, image) => {
-        console.log(acc)
-        const location = image.obj.LMU_location
-        if (!acc[location]) {
-          acc[location] = []
-        }
+      console.log('MARKERS', validMarkers)
+
+      const groupedMarkers = validMarkers.reduce((acc, image) => {
+        const location = image.obj.LMU_location || 'none'
+        acc[location] = acc[location] || []
         acc[location].push(image)
         return acc
       }, {})
-      console.log('group')
-      console.log(groupedMarkers)
-      const clusteredMarkers = Object.values(groupedMarkers)
 
-      const adjustedMarkers = clusteredMarkers.map((cluster) => {
-        let offset = 0
-        return cluster.map((image) => {
-          offset += 0.0001
-          return {
+      console.log('group', groupedMarkers)
+
+      const adjustedMarkers = Object.values(groupedMarkers).flatMap(
+        (cluster) => {
+          return cluster.map((image) => ({
             ...image,
             position: {
-              lat: image.obj.lat + offset,
-              lng: image.obj.long + offset,
+              lat: image.obj.lat + getRandomOffset(),
+              lng: image.obj.long + getRandomOffset(),
             },
-          }
-        })
-      })
+          }))
+        }
+      )
 
-      setMarkerData(adjustedMarkers.flat())
+      setMarkerData(adjustedMarkers)
     }
 
     locationData()
   }, [])
 
   if (!isLoaded) {
-    // You can return a loading indicator or any other content while the map is loading
     return <div>Loading...</div>
   }
 
-  // next step: add marker cluster (in addition to offset)
   return (
     <div className='flex justify-center items-center h-screen'>
       <GoogleMap
@@ -95,19 +93,29 @@ export default function CampusMap() {
         center={center}
         zoom={17}
       >
-        {markerData.map((image) => (
-          <Marker
-            key={image.fileName}
-            position={{
-              lat: image.obj.lat + Math.random() / 23000,
-              lng: image.obj.long + Math.random() / 23000,
-            }}
-          />
-        ))}
+        <MarkerClusterer options={markerClustererOptions}>
+          {(clusterer) =>
+            markerData.map((image) => (
+              <Marker
+                key={image.fileName}
+                position={image.position}
+                clusterer={clusterer}
+                onMouseOver={() => setHoveredMarker(image)}
+                onMouseOut={() => setHoveredMarker(null)}
+              >
+                {hoveredMarker === image && (
+                  <InfoWindow>
+                    <div>
+                      <p>{image.title}</p>
+                      {console.log('Marker hover: ', image)}
+                    </div>
+                  </InfoWindow>
+                )}
+              </Marker>
+            ))
+          }
+        </MarkerClusterer>
       </GoogleMap>
-
-      {markerData.map((image) => console.log(image.obj.lat))}
-      {markerData.map((image) => console.log(image.obj.long))}
     </div>
   )
 }
