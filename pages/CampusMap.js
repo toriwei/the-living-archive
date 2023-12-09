@@ -8,14 +8,28 @@ import {
 } from '@react-google-maps/api'
 
 import { fetchImageData } from './ImageGallery'
+import InfoWindowContent from './InfoWindowContent'
 
 export default function CampusMap() {
   const [markerData, setMarkerData] = useState([])
   const [hoveredMarker, setHoveredMarker] = useState([])
+  const [infoWindowOpen, setInfoWindowOpen] = useState(false)
+  const [isInfoWindowHovered, setIsInfoWindowHovered] = useState(false)
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyDM1aAcM26w2DIgRPtZJ1aNZGYbRhkuNCc',
   })
+  const MAP_MARKER =
+    'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'
+
+  const svgMarker = {
+    path: MAP_MARKER,
+    // fillColor: '#BA68C8',
+    fillOpacity: 1,
+    strokeColor: '#AB47BC',
+    anchor: { x: 12, y: 24 },
+    scale: 1.5,
+  }
 
   const center = useMemo(() => ({ lat: 33.971, lng: -118.417 }), [])
   const mapOptions = {
@@ -38,11 +52,11 @@ export default function CampusMap() {
     zoomOnClick: true,
   }
 
-  const handleMarkerHover = (image) => {
-    console.log('Marker hover:', image)
-  }
-
   const getRandomOffset = () => Math.random() / 20000
+
+  const handleMarkerClick = (image) => {
+    console.log('CLICK', image)
+  }
 
   useEffect(() => {
     const locationData = async () => {
@@ -100,15 +114,17 @@ export default function CampusMap() {
                 key={image.fileName}
                 position={image.position}
                 clusterer={clusterer}
+                onClick={() => handleMarkerClick(image)}
                 onMouseOver={() => setHoveredMarker(image)}
                 onMouseOut={() => setHoveredMarker(null)}
+                icon={{
+                  ...svgMarker,
+                  fillColor: hoveredMarker === image ? 'pink' : '#BA68C8',
+                }}
               >
                 {hoveredMarker === image && (
                   <InfoWindow>
-                    <div>
-                      <p>{image.title}</p>
-                      {console.log('Marker hover: ', image)}
-                    </div>
+                    <InfoWindowContent image={image} />
                   </InfoWindow>
                 )}
               </Marker>

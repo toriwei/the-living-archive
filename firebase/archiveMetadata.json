@@ -105,5 +105,35 @@
     "author_title": "Section Editor",
     "LMU_location": "Pereira Hall",
     "tags": ["hate crime", "homophobia", "AGLA"]
+  },
+  "The_Tower_1994_91": {
+    "source_type": "Yearbooks",
+    "date": "1994",
+    "page": 91,
+    "section": "Organizations",
+    "tags": ["Sursum Corda, Service Organization Community, AIDS"],
+    "source_metadata": [
+      {
+        "Title": "The Tower (1994)",
+        "Date": 1994,
+        "Description": "The Loyola Marymount University yearbook for the 1993 - 1994 academic year.",
+        "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
+        "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
+        "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
+        "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
+        "Is Part Of": "Loyola Marymount University Yearbook Collection",
+        "Sponsorship": "This yearbook was digitized by LMU Student Media.",
+        "Format Extent": "352 p.",
+        "Type Value": "Yearbooks",
+        "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
+        "Call Number": "LD3131.L763 T6 1994",
+        "Language": "eng",
+        "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
+        "Collection(s)": "Loyola Marymount University Yearbook Collection",
+        "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/the-tower-1994/64928",
+        "Download Date": "December 08 2023",
+        "Publisher and Resource Name": "William H. Hannon Library"
+      }
+    ]
   }
 }
