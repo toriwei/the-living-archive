@@ -6,6 +6,13 @@ function Modal({ imageData, currentIndex, onClose, file }) {
   if (!imageData || imageData.length === 0) {
     return <div>Loading...</div>
   }
+
+  console.log('==============')
+  console.log('image data', imageData)
+  console.log('currentIndex', currentIndex)
+  console.log('onClose', onClose)
+  console.log('file', file)
+  console.log('==============')
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(currentIndex)
   const [currentFile, setCurrentFile] = useState(file)

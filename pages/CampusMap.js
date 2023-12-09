@@ -9,12 +9,15 @@ import {
 
 import { fetchImageData } from './ImageGallery'
 import InfoWindowContent from './InfoWindowContent'
+import Modal from './Modal'
 
 export default function CampusMap() {
   const [markerData, setMarkerData] = useState([])
   const [hoveredMarker, setHoveredMarker] = useState([])
   const [infoWindowOpen, setInfoWindowOpen] = useState(false)
   const [isInfoWindowHovered, setIsInfoWindowHovered] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [image, setImage] = useState(null)
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyDM1aAcM26w2DIgRPtZJ1aNZGYbRhkuNCc',
@@ -55,7 +58,13 @@ export default function CampusMap() {
   const getRandomOffset = () => Math.random() / 20000
 
   const handleMarkerClick = (image) => {
-    console.log('CLICK', image)
+    setImage(image)
+    setIsModalOpen(true)
+  }
+
+  const handleMarkerClose = () => {
+    setImage(null)
+    setIsModalOpen(false)
   }
 
   useEffect(() => {
@@ -131,6 +140,16 @@ export default function CampusMap() {
             ))
           }
         </MarkerClusterer>
+        {isModalOpen && (
+          <Modal
+            imageData={markerData}
+            currentIndex={markerData.findIndex(
+              (marker) => marker.fileName === image.fileName
+            )}
+            onClose={() => handleMarkerClose()}
+            file={image.fileName}
+          />
+        )}
       </GoogleMap>
     </div>
   )

@@ -1,13 +1,10 @@
 import { useMemo, useEffect, useState } from 'react'
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  InfoWindow,
-  MarkerClusterer,
-} from '@react-google-maps/api'
 
 function InfoWindowContent({ image }) {
+  if (!image) {
+    return <div>Loading...</div>
+  }
+
   const header =
     image.obj.source_type === 'Yearbooks'
       ? `${image.title} Yearbook p.${image.obj.page}`
@@ -19,9 +16,8 @@ function InfoWindowContent({ image }) {
     { label: 'Description', content: image.obj.description },
   ]
   return (
-    <div className='w-96 h-52'>
+    <div className='w-96'>
       <p className='font-bold p-2'>{header}</p>
-      {console.log('Image', image)}
       <div className='flex'>
         <div className='flex-shrink-0 pl-2'>
           <img
@@ -42,6 +38,8 @@ function InfoWindowContent({ image }) {
                 </div>
               )
           )}
+          <br></br>
+          <p>Click to expand</p>
         </div>
       </div>
     </div>
