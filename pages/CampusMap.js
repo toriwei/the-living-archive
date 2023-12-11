@@ -4,17 +4,35 @@ import {
   useLoadScript,
   Marker,
   InfoWindow,
+  MarkerClusterer,
 } from '@react-google-maps/api'
 
 import { fetchImageData } from './ImageGallery'
+import InfoWindowContent from './InfoWindowContent'
+import Modal from './Modal'
 
 export default function CampusMap() {
-  const [imageData, setImageData] = useState([])
   const [markerData, setMarkerData] = useState([])
+  const [hoveredMarker, setHoveredMarker] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [image, setImage] = useState(null)
+  const [map, setMap] = useState(null)
+  const [selectedMarkerPosition, setSelectedMarkerPosition] = useState(null)
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyDM1aAcM26w2DIgRPtZJ1aNZGYbRhkuNCc',
   })
+  const MAP_MARKER =
+    'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'
+
+  const svgMarker = {
+    path: MAP_MARKER,
+    // fillColor: '#BA68C8',
+    fillOpacity: 1,
+    strokeColor: '#AB47BC',
+    anchor: { x: 12, y: 24 },
+    scale: 1.5,
+  }
 
   const center = useMemo(() => ({ lat: 33.971, lng: -118.417 }), [])
   const mapOptions = {
@@ -29,64 +47,79 @@ export default function CampusMap() {
         elementType: 'labels.icon',
         stylers: [{ visibility: 'off' }],
       },
-      // {
-      //   featureType: 'poi',
-      //   elementType: 'labels.icon',
-      //   stylers: [{ visibility: 'off' }],
-      // },
     ],
+    maxZoom: 20,
+  }
+
+  const markerClustererOptions = {
+    gridSize: 7,
+    zoomOnClick: true,
+  }
+
+  const getRandomOffset = () => Math.random() / 20000
+
+  const handleMarkerClick = (image) => {
+    setImage(image)
+    setIsModalOpen(true)
+    console.log('HERE IMAGE', image.title)
+
+    const clickedMarker = markerData.find(
+      (marker) => marker.fileName === image.fileName
+    )
+    map.panTo(clickedMarker.position)
+    console.log(clickedMarker)
+  }
+
+  const handleMarkerClose = () => {
+    setImage(null)
+    setIsModalOpen(false)
   }
 
   useEffect(() => {
     const locationData = async () => {
       const images = await fetchImageData()
-      setImageData(images)
-      console.log(images)
-      const markers = images.filter(
+
+      const validMarkers = images.filter(
         (image) =>
           image.obj.hasOwnProperty('lat') && image.obj.hasOwnProperty('long')
       )
-      console.log('MARKERS')
-      console.log(markers)
-      const groupedMarkers = markers.reduce((acc, image) => {
-        console.log(acc)
-        const location = image.obj.LMU_location
-        if (!acc[location]) {
-          acc[location] = []
-        }
+      console.log('MARKERS', validMarkers)
+
+      const groupedMarkers = validMarkers.reduce((acc, image) => {
+        const location = image.obj.LMU_location || 'none'
+        acc[location] = acc[location] || []
         acc[location].push(image)
         return acc
       }, {})
-      console.log('group')
-      console.log(groupedMarkers)
-      const clusteredMarkers = Object.values(groupedMarkers)
 
-      const adjustedMarkers = clusteredMarkers.map((cluster) => {
-        let offset = 0
-        return cluster.map((image) => {
-          offset += 0.0001
-          return {
+      console.log('group', groupedMarkers)
+
+      const adjustedMarkers = Object.values(groupedMarkers).flatMap(
+        (cluster) => {
+          return cluster.map((image) => ({
             ...image,
             position: {
-              lat: image.obj.lat + offset,
-              lng: image.obj.long + offset,
+              lat: image.obj.lat + getRandomOffset(),
+              lng: image.obj.long + getRandomOffset(),
             },
-          }
-        })
-      })
+          }))
+        }
+      )
 
-      setMarkerData(adjustedMarkers.flat())
+      setMarkerData(adjustedMarkers)
     }
 
     locationData()
-  }, [])
+    if (map && selectedMarkerPosition) {
+      // Use the panTo method to focus on the selected marker
+      map.panTo(selectedMarkerPosition)
+    }
+  }, [selectedMarkerPosition, map])
 
   if (!isLoaded) {
-    // You can return a loading indicator or any other content while the map is loading
     return <div>Loading...</div>
   }
 
-  // next step: add marker cluster (in addition to offset)
   return (
     <div className='flex justify-center items-center h-screen'>
       <GoogleMap
@@ -94,20 +127,44 @@ export default function CampusMap() {
         options={mapOptions}
         center={center}
         zoom={17}
+        onLoad={(map) => setMap(map)}
       >
-        {markerData.map((image) => (
-          <Marker
-            key={image.fileName}
-            position={{
-              lat: image.obj.lat + Math.random() / 23000,
-              lng: image.obj.long + Math.random() / 23000,
-            }}
+        <MarkerClusterer options={markerClustererOptions}>
+          {(clusterer) =>
+            markerData.map((image) => (
+              <Marker
+                key={image.fileName}
+                position={image.position}
+                clusterer={clusterer}
+                onClick={() => handleMarkerClick(image)}
+                onMouseOver={() => setHoveredMarker(image)}
+                onMouseOut={() => setHoveredMarker(null)}
+                icon={{
+                  ...svgMarker,
+                  fillColor: hoveredMarker === image ? 'pink' : '#BA68C8',
+                }}
+              >
+                {hoveredMarker === image && (
+                  <InfoWindow>
+                    <InfoWindowContent image={image} />
+                  </InfoWindow>
+                )}
+              </Marker>
+            ))
+          }
+        </MarkerClusterer>
+        {isModalOpen && (
+          <Modal
+            imageData={markerData}
+            currentIndex={markerData.findIndex(
+              (marker) => marker.fileName === image.fileName
+            )}
+            onClose={() => handleMarkerClose()}
+            file={image.fileName}
+            onMarkerChange={(position) => setSelectedMarkerPosition(position)}
           />
-        ))}
+        )}
       </GoogleMap>
-
-      {markerData.map((image) => console.log(image.obj.lat))}
-      {markerData.map((image) => console.log(image.obj.long))}
     </div>
   )
 }
