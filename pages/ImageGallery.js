@@ -114,15 +114,16 @@ function ImageGallery() {
   )
 
   return (
-    <div>
-      <input
-        type='text'
-        placeholder='Search images...'
-        value={searchQueryTemp}
-        onChange={handleSearchChange}
-      />
-
-      <button onClick={handleSearch}>Search</button>
+    <div className='pt-12 pl-12 pr-12'>
+      <div className='pb-8'>
+        <input
+          type='text'
+          placeholder='Search images...'
+          value={searchQueryTemp}
+          onChange={handleSearchChange}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
 
       <div className='grid grid-cols-4 gap-4'>
         {filteredImages.map((image, index) => (

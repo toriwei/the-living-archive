@@ -14,10 +14,10 @@ import Modal from './Modal'
 export default function CampusMap() {
   const [markerData, setMarkerData] = useState([])
   const [hoveredMarker, setHoveredMarker] = useState([])
-  const [infoWindowOpen, setInfoWindowOpen] = useState(false)
-  const [isInfoWindowHovered, setIsInfoWindowHovered] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [image, setImage] = useState(null)
+  const [map, setMap] = useState(null)
+  const [selectedMarkerPosition, setSelectedMarkerPosition] = useState(null)
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyDM1aAcM26w2DIgRPtZJ1aNZGYbRhkuNCc',
@@ -48,6 +48,7 @@ export default function CampusMap() {
         stylers: [{ visibility: 'off' }],
       },
     ],
+    maxZoom: 20,
   }
 
   const markerClustererOptions = {
@@ -60,6 +61,13 @@ export default function CampusMap() {
   const handleMarkerClick = (image) => {
     setImage(image)
     setIsModalOpen(true)
+    console.log('HERE IMAGE', image.title)
+
+    const clickedMarker = markerData.find(
+      (marker) => marker.fileName === image.fileName
+    )
+    map.panTo(clickedMarker.position)
+    console.log(clickedMarker)
   }
 
   const handleMarkerClose = () => {
@@ -102,7 +110,11 @@ export default function CampusMap() {
     }
 
     locationData()
-  }, [])
+    if (map && selectedMarkerPosition) {
+      // Use the panTo method to focus on the selected marker
+      map.panTo(selectedMarkerPosition)
+    }
+  }, [selectedMarkerPosition, map])
 
   if (!isLoaded) {
     return <div>Loading...</div>
@@ -115,6 +127,7 @@ export default function CampusMap() {
         options={mapOptions}
         center={center}
         zoom={17}
+        onLoad={(map) => setMap(map)}
       >
         <MarkerClusterer options={markerClustererOptions}>
           {(clusterer) =>
@@ -148,6 +161,7 @@ export default function CampusMap() {
             )}
             onClose={() => handleMarkerClose()}
             file={image.fileName}
+            onMarkerChange={(position) => setSelectedMarkerPosition(position)}
           />
         )}
       </GoogleMap>

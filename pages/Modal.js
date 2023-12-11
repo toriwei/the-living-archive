@@ -2,22 +2,14 @@ import React, { useState, useEffect } from 'react'
 import ItemData from './ItemData'
 import FullscreenImage from './FullscreenImage'
 
-function Modal({ imageData, currentIndex, onClose, file }) {
+function Modal({ imageData, currentIndex, onClose, file, onMarkerChange }) {
   if (!imageData || imageData.length === 0) {
     return <div>Loading...</div>
   }
 
-  console.log('==============')
-  console.log('image data', imageData)
-  console.log('currentIndex', currentIndex)
-  console.log('onClose', onClose)
-  console.log('file', file)
-  console.log('==============')
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(currentIndex)
   const [currentFile, setCurrentFile] = useState(file)
-  console.log(imageData[currentImageIndex].fileName)
-  console.log(imageData[currentImageIndex])
 
   const openFullscreen = () => {
     setIsFullscreen(true)
@@ -31,19 +23,15 @@ function Modal({ imageData, currentIndex, onClose, file }) {
     const previousIndex =
       (currentImageIndex - 1 + imageData.length) % imageData.length
     setCurrentImageIndex(previousIndex)
-    console.log('===PREV====')
-    console.log(imageData[previousIndex].fileName)
-    console.log('====')
     setCurrentFile(imageData[previousIndex].fileName)
+    onMarkerChange(imageData[previousIndex].position)
   }
 
   const goToNext = () => {
     const nextIndex = (currentImageIndex + 1) % imageData.length
     setCurrentImageIndex(nextIndex)
-    console.log('NEXT')
-    console.log(imageData[nextIndex].fileName)
-    console.log('====')
     setCurrentFile(imageData[nextIndex].fileName)
+    onMarkerChange(imageData[nextIndex].position)
   }
 
   useEffect(() => {

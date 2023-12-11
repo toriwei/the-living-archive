@@ -38,8 +38,6 @@ function InfoWindowContent({ image }) {
                 </div>
               )
           )}
-          <br></br>
-          <p>Click to expand</p>
         </div>
       </div>
     </div>
