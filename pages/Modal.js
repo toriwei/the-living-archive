@@ -24,14 +24,18 @@ function Modal({ imageData, currentIndex, onClose, file, onMarkerChange }) {
       (currentImageIndex - 1 + imageData.length) % imageData.length
     setCurrentImageIndex(previousIndex)
     setCurrentFile(imageData[previousIndex].fileName)
-    onMarkerChange(imageData[previousIndex].position)
+    if (onMarkerChange) {
+      onMarkerChange(imageData[previousIndex].position)
+    }
   }
 
   const goToNext = () => {
     const nextIndex = (currentImageIndex + 1) % imageData.length
     setCurrentImageIndex(nextIndex)
     setCurrentFile(imageData[nextIndex].fileName)
-    onMarkerChange(imageData[nextIndex].position)
+    if (onMarkerChange) {
+      onMarkerChange(imageData[nextIndex].position)
+    }
   }
 
   useEffect(() => {
