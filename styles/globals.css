@@ -3,8 +3,7 @@
 @import 'tailwindcss/utilities';
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: skyblue;
+  font-family: 'Helvetica Neue', sans-serif;
 }
 /* 
 html,
