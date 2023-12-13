@@ -93,6 +93,12 @@ function ImageGallery() {
     setSearchQuery(searchQueryTemp)
   }
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch()
+    }
+  }
+
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -130,20 +136,44 @@ function ImageGallery() {
   const isCurrentPage = (pageIndex) => pageIndex === currentPage
   return (
     <div className='pt-12 pl-12 pr-12'>
-      <Pagination
-        currentPage={currentPage}
-        handlePageChange={handlePageChange}
-        numberPages={numberPages}
-        isCurrentPage={isCurrentPage}
-      />
-      <div className='pb-8'>
-        <input
-          type='text'
-          placeholder='Search images...'
-          value={searchQueryTemp}
-          onChange={handleSearchChange}
+      <div className='flex flex-row w-full'>
+        <div className='pb-8 flex flex-grow items-center'>
+          <input
+            className='block p-4 ps-5 pr-24 font-semibold text-english-violet border border-gray-300 border-r-0 rounded-l-lg outline-english-violet'
+            type='text'
+            placeholder='Search'
+            value={searchQueryTemp}
+            onChange={handleSearchChange}
+            onKeyDown={handleKeyPress}
+          />
+          <button
+            className='p-4 font-semibold text-white bg-english-violet border border-english-violet rounded-r-lg flex items-center'
+            onClick={handleSearch}
+          >
+            <svg
+              className='w-6 h-6'
+              aria-hidden='true'
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 20 20'
+            >
+              <path
+                stroke='currentColor'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z'
+              />
+            </svg>
+          </button>
+        </div>
+        <Pagination
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+          numberPages={numberPages}
+          isCurrentPage={isCurrentPage}
+          className='flex-end'
         />
-        <button onClick={handleSearch}>Search</button>
       </div>
 
       <div className='grid grid-cols-4 gap-4'>
