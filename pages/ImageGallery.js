@@ -154,7 +154,7 @@ function ImageGallery() {
               key={index}
               src={image.url}
               alt={`Image ${index}`}
-              onClick={() => openModal(image.url, image.fileName, index)}
+              onClick={() => openModal(image.url, index)}
             />
             <span>{image.title}</span>
           </div>
