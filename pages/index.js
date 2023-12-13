@@ -5,11 +5,15 @@ import CampusMap from './CampusMap'
 export default function Home() {
   return (
     <div>
-      <div className='flex mt-4'>
-        <aside className='h-screen sticky top-0 w-1/6 text-english-violet text-lg'>
-          <h2 className='text-3xl font-bold text-english-violet mx-auto'>
-            THE LIVING ARCHIVE
-          </h2>
+      <div className='flex mt-12'>
+        <aside className='h-screen sticky top-0 w-1/6 text-english-violet text-lg pr-2'>
+          <div className='flex flex-col justify-content'>
+            <h2 className='text-3xl font-bold text-english-violet mx-auto'>
+              THE LIVING
+              <br />
+              ARCHIVE
+            </h2>
+          </div>
           <div className='flex flex-col justify-center h-full'>
             <nav className='flex flex-col justify-center font-bold text-2xl '>
               <ul className='mx-auto'>
@@ -32,7 +36,7 @@ export default function Home() {
             </nav>
           </div>
         </aside>
-        <main className='w-5/6 mt-8'>
+        <main className='w-5/6'>
           <div className='bg-english-violet flex flex-row mb-12'>
             <div className='flex-1 p-8'>
               <h2 className='text-5xl font-bold text-white pt-36'>
