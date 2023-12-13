@@ -5,7 +5,7 @@ export default function Pagination({
   isCurrentPage,
 }) {
   return (
-    <div className='mt-4'>
+    <div className='mt-4 text-english-violet'>
       <span
         className='text-3xl cursor-pointer'
         onClick={() =>
@@ -19,7 +19,9 @@ export default function Pagination({
       }).map((_, index) => (
         <button
           className={`px-3 py-1 mx-1 border ${
-            isCurrentPage(index + 1) ? 'border-solid' : 'border-transparent'
+            isCurrentPage(index + 1)
+              ? 'border-solid border-english-violet rounded'
+              : 'border-transparent'
           }`}
           key={index}
           onClick={() => handlePageChange(index + 1)}

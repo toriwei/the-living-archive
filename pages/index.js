@@ -1,11 +1,11 @@
 'use client'
 import ImageGallery from './ImageGallery'
 import CampusMap from './CampusMap'
-
+import About from './About.js'
 export default function Home() {
   return (
     <div>
-      <div className='flex mt-12'>
+      <div className='flex mt-12 mb-24'>
         <aside className='h-screen sticky top-0 w-1/6 text-english-violet text-lg pr-2'>
           <div className='flex flex-col justify-content'>
             <h2 className='text-3xl font-bold text-english-violet mx-auto'>
@@ -40,12 +40,13 @@ export default function Home() {
           <div className='bg-english-violet flex flex-row mb-12'>
             <div className='flex-1 p-8'>
               <h2 className='text-5xl font-bold text-white pt-36'>
-                EXPLORE LGBTQ+ HISTORY
+                EXPLORING LGBTQ+ HISTORY AT LMU
               </h2>
-              <h3 className='pt-4 text xl text-white'>
-                Documenting LGBTQ+ history as seen in the Loyola Marymount
-                University archives. Scroll to explore. Something more here
-                something more here.
+              <h3 className='pt-4 text-white'>
+                Discover queer stories as seen in the Loyola Marymount
+                University records. The Living Archive serves as a platform to
+                amplify voices and experiences of typically overlooked groups in
+                the LMU community.
               </h3>
             </div>
             <div className='flex-1 p-8'>
@@ -69,6 +70,7 @@ export default function Home() {
             <h2 className='pt-8 text-5xl font-bold text-english-violet'>
               About
             </h2>
+            <About />
           </section>
         </main>
       </div>
