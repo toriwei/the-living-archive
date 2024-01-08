@@ -193,7 +193,7 @@ function ImageGallery() {
 
       {isModalOpen && (
         <Modal
-          imageData={filteredImages}
+          imageData={currentImages}
           currentIndex={selectedImageIndex}
           onClose={closeModal}
           file={selectedName}
