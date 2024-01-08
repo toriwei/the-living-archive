@@ -9,7 +9,6 @@ function Modal({ imageData, currentIndex, onClose, file, onMarkerChange }) {
 
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(currentIndex)
-  const [currentFile, setCurrentFile] = useState(file)
 
   const openFullscreen = () => {
     setIsFullscreen(true)
@@ -23,7 +22,6 @@ function Modal({ imageData, currentIndex, onClose, file, onMarkerChange }) {
     const previousIndex =
       (currentImageIndex - 1 + imageData.length) % imageData.length
     setCurrentImageIndex(previousIndex)
-    setCurrentFile(imageData[previousIndex].fileName)
     if (onMarkerChange) {
       onMarkerChange(imageData[previousIndex].position)
     }
@@ -32,7 +30,6 @@ function Modal({ imageData, currentIndex, onClose, file, onMarkerChange }) {
   const goToNext = () => {
     const nextIndex = (currentImageIndex + 1) % imageData.length
     setCurrentImageIndex(nextIndex)
-    setCurrentFile(imageData[nextIndex].fileName)
     if (onMarkerChange) {
       onMarkerChange(imageData[nextIndex].position)
     }
@@ -40,8 +37,7 @@ function Modal({ imageData, currentIndex, onClose, file, onMarkerChange }) {
 
   useEffect(() => {
     setCurrentImageIndex(currentIndex)
-    setCurrentFile(file)
-  }, [currentIndex, file])
+  }, [currentIndex])
 
   return (
     <div className='fixed inset-0 flex items-center justify-center z-50'>

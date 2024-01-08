@@ -5,7 +5,7 @@ import About from './About.js'
 export default function Home() {
   return (
     <div>
-      <div className='flex mt-12 mb-24'>
+      <div className='flex mt-12'>
         <aside className='h-screen sticky top-0 w-1/6 text-english-violet text-lg pr-2'>
           <div className='flex flex-col justify-content'>
             <h2 className='text-3xl font-bold text-english-violet mx-auto'>
@@ -36,7 +36,7 @@ export default function Home() {
             </nav>
           </div>
         </aside>
-        <main className='w-5/6'>
+        <main className='w-5/6 mb-24'>
           <div className='bg-english-violet flex flex-row mb-12'>
             <div className='flex-1 p-8'>
               <h2 className='text-5xl font-bold text-white pt-36'>
