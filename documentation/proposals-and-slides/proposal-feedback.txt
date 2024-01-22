@@ -1,0 +1,32 @@
+
+
+Evaluation and Feedback
+CMSI 4072 project ~ Spring 2024
+Diego Acosta and Eylul Akgul
+Escape Keck game project
+==============================
+
+Proposal Document:
+------------------
+   Great work on the document.  The description is at high enough level to
+   give the reader an overview, and yet low enough level to let the reader
+   know what some of the planned technologies are that you are using, and
+   what they will be used for, as well as what you have planned as a
+   follow-on for this project this semester.
+
+   The justification section is also well done, and serves to highlight your
+   various interests, making this a true culmination to your career at LMU.
+   Very nice!
+
+Proposal Presentation:
+----------------------
+   Excellent job on the presentation!  You presented very well, and drove in
+   the point of how important this project is.  You did great keeping the
+   audience engaged and the slides make good use of graphics ~ simple and
+   not distracting, but adding interest.
+
+
+=============================================================================
+your score:  5% out of 5% which is an A-plus
+
+Great job on this presentation and proposal and great start to the semester!
