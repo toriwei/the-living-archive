@@ -1,135 +1,99 @@
 # 5.0 Requirements Document
+## Epic 1: Archive Submissions
+As a user, I want to submit archival records to The Living Archive so that my stories and experiences are preserved.
 
-## 5.1 Introduction
+**User Story 1:** As a user, I want to submit my record online through the web app so that I can conveniently contribute to the archive.
 
-### 5.1.1 Description
+Acceptance Criteria:
+- The submission page is accessible within the main web app.
+- The submission page prompts users to provide information including File, Title, Description, Date, Creator/Author, Location, Contributor Name, Email, Confirm Email, and Opt-In to Display Contributor Name.
+- The Files prompt includes an upload button, enabling users to upload a single file through system file chooser dialog or drag-and-drop.
+- The Opt-In to Display Contributor Name has a checkbox input.
+- The remaining prompts have text input boxes.
 
-This Software Requirements Specification documents the requirements for the interactive web-app archive, called The Living Archive. This web app is a continuation of last semester’s work and currently consists of an image gallery and a campus map. This document will provide information on the planned additions: an archive record submission page, an administrator login/approval portal, and an interactive data visualization chart. Development of this project will continue in React.js and Node.
+**User Story 2:** As a user, I want to receive instant feedback on my form, so I can submit the necessary information for my record.
+Acceptance Criteria
+- The submission form displays an error message if any required information (Files, Contributor Name, Email, Confirm Email) is not submitted.
+- The submission form displays an error message if the user enters different emails in the email prompts.
 
-### 5.1.2 Diagram
-![SRS Diagram](./srs-diagram.png)
+## Epic 2: Administrator Workflow
+As a user with administrator privileges, I want to upload archive submissions through the web app so that I do not have to do any programming on the app and databases themselves.
+**User Story 3:** As a user, I want to review and approve submission records through the web app so that I can upload records to the archive.
 
-### 5.1.3 Document Overview
+Acceptance Criteria:
+- The administrator page is accessible within the main web app.
+- The administrator page requires user login with an email and password.
+- The records are displayed in a grid format.
+- The records can be clicked to display the submission photo and information
+- The submission can be approved/denied by clicking a button.
 
-This document is organized as follows. Section 5.2 describes the expected functional features of the project. Section 5.3 describes the required performance and outcomes of the web page and its resources. Section 5.4 lists the necessary software and hardware to develop and use the site.
+**User Story 4:** As a user, I want to organize submission records so I can easily explore all the submissions.
 
-## 5.2 Functional Requirements
+Acceptance Criteria:
+- The administrator page includes a "Sort By" box that sorts submissions by either ascending or descending submission date.
+- The page includes a "Search" input box that accepts keywords.
+- The administrator page includes a section where previous submissions can be review.
 
-The Living Archive will be gaining three new features. First, the Archival Record Submission page will allow any users to submit to the archive. Next, the administrator page will let developers approve submissions. Lastly, the Archive Data Visualization will let all users interact with the archive. The submission and administrator page can be accessed through buttons on the web app navigation bar, and the data visualization component will be displayed on the main page after the existing features.
+## Epic 3: Archive Data Visualization
+As a user, I want to have statistics about the materials in the archive so that I can better understand the scope of the archive and its contents.
 
-### 5.2.1 Archival Record Submission Page
+**User Story 3:** As a user, I want to see data visualizations of the records so I can easily engage with history in a way that is visually-appealing and easy to understand.
 
-5.2.1.1 The page shall be displayed within the main web app.
+Acceptance Criteria:
+- The web app displays charts with numerical information about the items depending on categories like Student Organization, Date, and Location.
+- The charts are color coded.
 
-5.2.1.2 The page shall include prompts for users to submit their information.
+**User Story 4:** As a user, I want to customize the data visualization so I can explore topics that are most interesting to me.
 
-5.2.1.3 The page shall include, but will not be limited to, the following prompts:
+Acceptance Criteria:
+- The charts have respective input boxes and search buttons for customization within categories.
+- The search criteria can be removed.
 
-- File
-- Title
-- Description
-- Date
-- Creator/Author
-- Location
-- Contributor Name
-- Email
-- Confirm Email
-- Opt-In to Display Contributor Name
+## Epic 3: Performance
+As a user, I want the web app to have quick performance so I can have a seamless experience in exploring and contributing to the archive. 
 
-5.2.1.4 The Files prompt shall have an upload button.
+**User Story 5:** As a user, I want the submission page to quickly receive my information so I know that my response has been recorded.
 
-The upload box will allow the user to single click the button, which will open the user’s system file chooser dialog.
+Acceptance Criteria:
+- The submission page will display a confirmation message within 5 seconds of the form being submitted.
+- The submission page will display a “Still Working” message after 5 seconds if the form has not yet been entered into the database.
 
-The file chooser will allow the user to upload one file to the form.
-The upload box will allow the user to drag and drop one file into the upload box.
+**User Story 6:** As a user, I want the administrator page to verify my login quickly so that I can access the submission approval page in a timely manner.
 
-5.2.1.5 The Opt-In to Display Contributor Name prompt shall have a checkbox.
+Acceptance Criteria:
+- The login will be verified within 3 seconds after the user attempts to log in.
+- The submissions will be displayed within 3 seconds after logging in.
 
-5.2.1.6 The remainder of prompts from requirement 5.2.1.2 shall be input boxes.
+**User Story 7:** As a user, I want the data visualization charts to update quickly, so that I can immediately see the changes I made to the charts.
+The charts will update within 2 seconds of making customizations.
 
-5.2.1.7 The page shall display an error message if the user does not submit the required information.
+## Epic 4: Development
+As a developer, I want to enhance user interactions and streamline development processes so that both end-users and developers experience an efficient web app.
 
-5.2.1.8 The required prompts include, but are not limited to:
+**User Story 8:** As a developer, I want to ensure secure user authentication and real-time data storage, so that users can confidently submit and access archival records.
 
-- Files
-- Contributor Name
-- Email
-- Confirm Email
+Acceptance Criteria:
+- Google Firebase Authentication is implemented.
+- Google Firebase Storage and Firestore are implemented.
+- Users can securely log in using their credentials.
+- Submitted archival records are stored in the databases for immediate access.
 
-5.2.1.8 The page shall display an error message if the user does not enter the same email in both email prompts.
+**User Story 9:** As a developer, I want to include a data visualization experience so that users can interact dynamically with charts and explore archive information.
 
-### 5.2.2 Administrator Page
+Acceptance Criteria:
+- D3.js is implemented.
+- Dynamic and interactive charts are implemented in the web app.
+- Users can customize and interact with charts to explore the archive data.
 
-5.2.2.1 The page shall require the user to log in with an email and password.
+**User Story 10:** As a developer, I want to maintain uniformity with the Node version so that all developers are working with the same features.
 
-5.2.2.2 The page shall allow the administrative user to view unapproved submission records in a grid format.
+Acceptance Criteria:
+- The application is developed using Node v18.17.0.
+- There are no errors with version type.
 
-5.2.2.3 The page shall have a “Filter” input box.
+**User Story 11:** As a developer, I want to have a streamlined deployment process so that changes can be quickly pushed to production.
 
-The filter box shall accept keywords and dates.
+Acceptance Criteria:
+- The application can be deployed via Vercel.
+- The application can be accessed by any user with any standard web browser.
 
-5.2.2.4 The page shall have a “Sort By” box.
-
-5.2.2.5 The records in the grid shall display the entire record submission when clicked.
-
-The record shall display a larger and expandable version of the record photo.
-
-The record shall include all the information the user provided.
-
-The record shall have a button to either reject or approve the submission.
-
-5.2.2.6 The page shall have a button to display previously rejected/approved applications
-
-### 5.2.3 Archive Data Visualization
-
-5.2.3.1 The Archive Data Visualization shall consist of a number of interactive charts to display the number of archive items according to the following categories:
-
-- Student Organization
-- Year/Date
-- Location
-
-5.2.3.2 The individual charts shall have buttons to customize the different choices within each category.
-
-5.2.3.3 The Student Organization chart and Location chart will have a search input box.
-
-The search input box will have an ‘Enter’ button beside it.
-
-The word will display as a button beneath the box.
-
-The user will be able to remove a word by clicking the ‘X’ on the word’s button.
-
-5.2.3.4 The Year/Date box shall have a date input box.
-
-The input box will have the same adding and deleting capability as the search input box.
-
-## 5.3 Performance Requirements
-
-### 5.3.1 Archival Record Submission Page Performance
-
-5.3.1.1 The application shall receive the user’s form within 5 seconds of the user clicking the submit button.
-
-### 5.3.2 Administrator Page Performance
-
-5.3.2.1 The application shall verify the user’s email and password within 3 seconds of the user attempting to log in.
-
-5.3.2.2 The application shall display submissions within 3 seconds after the user logs in.
-
-5.3.2.3 The application shall update the Image Gallery within 20 seconds after the user approves a submission.
-
-### 5.3.3 Data Visualization Performance
-
-5.3.3.1 The chart shall update within 3 seconds of the user making a customization.
-
-## 5.4 Environment Requirements
-
-### 5.4.1 Development Environment Requirements
-
-5.4.1.1 The application shall not require any special computing hardware for development.
-
-5.4.1.2 The developer shall have the following software to develop the application: Google Firebase, D3.js, and Node v18.17.0 or above.
-
-### 5.4.2 Execution Environment Requirements
-
-5.4.2.1 The application shall be deployed via Vercel.
-
-5.4.2.2 The application shall be accessed with any standard web browser.
