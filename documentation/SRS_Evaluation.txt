@@ -1,0 +1,40 @@
+
+
+Evaluation and Feedback
+CMSI 4072 project ~ Spring 2024
+Tori Wei
+Living Archive project
+==============================
+
+Software Requirements Specification Document:
+---------------------------------------------
+-- Introduction Section
+   Great work on this specification, Tori!  It would be nice to have a little
+   introduction paragraph at the start of the document to explain what is
+   covered, but otherwise this is very good!
+
+-- Functional Requirements
+   Your use of epics and child stories is perfect!  Good acceptance criteria
+   too.  The only comment I have is that the numbering of the child stories
+   is a bit off.  Epic 2 had user stories 3 and 4, then epic 3 has those two
+   numbers again...  :)
+
+   It would help to have the sections identified as "functional requirements"
+   and "performance requirements" and "environment requirements" to help the
+   reader more easily find those requirements by category.
+
+-- Performance Requirements
+   Same comment as functional requirements... nice work!
+
+-- Environment Requirements
+   Again, nice job on these.  Good thinking to include the way you will do
+   distribution, which considers maintenance updates.  Yours is the only SRS
+   that took it into account!  Nice job.
+
+=============================================================================
+your score:  10% out of 10% which is an A-plus
+
+All in all, an excellent first effort, with only that re-numbering thing to
+do before perfection is achieved.
+
+Make the changes as suggested above for the second submission.
