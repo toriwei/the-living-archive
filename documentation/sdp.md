@@ -6,15 +6,76 @@ This Software Development Plan provides the details of the planned development f
 
 With this web app, users will be able to view and search the archive, view data visualizations of the archive content, submit their own archival records, and if they are an approved administrator, manage submissions. Developing these features will require integrating a data visualization API, creating a submission form connected to the existing archive database, and setting up an authentication log-in process. The web app archive is currently supported through Google Firebase, so all these new features will be integrated into the existing databases.
 
-Deliverable Schedule
+Tasks
 
-| Deliverable        | Deadline |
-| ------------------ | -------- |
-| Responsive Design  | Week 9   |
-| Submission Form    | Week 10  |
-| Admin Portal       | Week 11  |
-| Data Visualization | Week 11  |
-| Styling            | Week 13  |
+| Task                              | Deadline |
+| --------------------------------- | -------- |
+| Responsive Design                 | Week 9   |
+| Submission Form                   | Week 10  |
+| Admin Portal                      | Week 11  |
+| Data Visualization                | Week 11  |
+| Updated Software Development Plan | Week 12  |
+| Styling                           | Week 13  |
+| Preliminary Demo Presentation     | Week 13  |
+| Preliminary Poster                | Week 14  |
+| Final Project Presentation        | Week 16  |
+| Final Product Delivery            | Week 16  |
+| In-Class Status Reports           | Weekly   |
+| Written Status Reports            | Weekly   |
+
+### 4.1.1 Project Deliverables
+
+All the course and project deliverables are listed below.
+
+#### Responsive Design
+
+- Due: Week 9
+- Description: The Living Archive will be accessible via web and mobile browsers. Styling with Tailwind CSS will enable users to easily access the website archives.
+
+#### Submission Form
+
+- Due: Week 10
+- Description: The submission form enables users to contribute their own stories and experiences to the archive by entering their information and uploading files on the submission page. The form will be integrated through the project's existing Firebase database setup.
+
+#### Admin Portal
+
+- Due: Week 11
+- Description: In order for the submitted records to get displayed on the archive, authorized administrators must approve them. The Admin Portal will be a new page on the website, allowing admin to log into their account and view, approve, and deny submissions. Google Firebase Authentication will be utilized for log-in purposes, and the portal will be accessing records from the Firebase database.
+
+#### Data Visualization
+
+- Due: Week 11
+- Description: Incorporating data visualization with the D3.js API will facilitate engaging user interaction with the archive. The charts displayed will help contextualize the contents of the archive. Users will be able to customize these charts to query the archive to whatever they find most interesting. JavaScript will be used for this querying.
+
+#### Updated Software Development Plan
+
+- Due: Week 12
+- Description: The Software Development Plan will be resubmitted to reflect any changes/updates in the project's processess.
+
+#### Styling
+
+- Due: Week 13
+- Description: Effective user interaction is a crucial part of the project, as the archive is a content-heavy site consisting of many photos and records. Figma will be used to design the layout of the overall site as well as individual pages. Tailwind will be added to the React app to implement the designs.
+
+#### Preliminary Demo Presentation
+
+- Due: Week 13
+- Description: The preliminary presentation will be the first version of the project presentation. It will contain a slide deck with information about the project and a live demo to showcase the development process of The Living Archive.
+
+#### Preliminary Poster
+
+- Due: Week 13
+- Description: The preliminary poster will be the first version of the project poster. It will contain basic information about the project and how it works to quickly and effectively communicate the most important information.
+
+#### Final Project Presentation
+
+- Due: Week 16
+- Description: Finalized presentation and demo with the information previously described in Preliminary.
+
+#### Final Product Delivery
+
+- Due: Week 16
+- Description: The final product delivery will include the completed project, documentation, and poster.
 
 ## 4.2 Project Resources
 
