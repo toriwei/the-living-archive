@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { storage, firestore } from '../firebase/firebaseConfig'
 import { ref, listAll, getDownloadURL, getMetadata } from 'firebase/storage'
 import { doc, getDoc } from 'firebase/firestore'
@@ -25,22 +25,24 @@ export async function fetchImageData() {
         )
         const docSnap = await getDoc(docRef)
         const itemData = docSnap.data()
-        let newObj = {}
-        switch (itemData.source_type) {
-          case 'Newspapers':
-            newObj = {
-              title: itemData.title,
-              section: itemData.section,
-            }
-            break
-          case 'Yearbooks':
-            newObj = {
-              title: itemData.source_metadata.Title,
-              location: itemData.LMU_location,
-              description: itemData.description,
-            }
-            break
-        }
+        const newObj = (() => {
+          switch (itemData.source_type) {
+            case 'Newspapers':
+              return {
+                title: itemData.title,
+                section: itemData.section,
+              }
+            case 'Yearbooks':
+              return {
+                title: itemData.source_metadata.Title,
+                location: itemData.LMU_location,
+                description: itemData.description,
+              }
+            default:
+              return {}
+          }
+        })()
+
         return {
           url,
           fileName,
@@ -71,6 +73,7 @@ function ImageGallery() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const scrollRef = useRef(null)
 
   function openModal(fileName, index) {
     setSelectedName(fileName)
@@ -130,16 +133,18 @@ function ImageGallery() {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage)
-    window.scrollTo(0, 0)
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   const isCurrentPage = (pageIndex) => pageIndex === currentPage
   return (
-    <div className='pt-12 pl-12 pr-12'>
-      <div className='flex flex-row w-full'>
-        <div className='pb-8 flex flex-grow items-center'>
+    <div className='pt-12 pl-12 pr-12' ref={scrollRef}>
+      <div className='flex flex-col md:flex-row w-full'>
+        <div className='pb-4 md:pb-8 flex flex-grow items-center'>
           <input
-            className='block p-4 ps-5 pr-24 font-semibold text-english-violet border border-gray-300 border-r-0 rounded-l-lg outline-english-violet'
+            className='block w-1/2 p-4 ps-5 sm:pr-24 pr-0 font-semibold text-english-violet border border-gray-300 border-r-0 rounded-l-lg outline-english-violet'
             type='text'
             placeholder='Search'
             value={searchQueryTemp}
@@ -176,17 +181,25 @@ function ImageGallery() {
         />
       </div>
 
-      <div className='grid grid-cols-4 gap-4'>
+      <div className='grid md:grid-cols-4 grid-cols-2 gap-4 items-start'>
         {currentImages.map((image, index) => (
-          <div key={image.fileName} className='relative'>
-            <img
-              className='archiveItem w-full h-80 min-h-80 object-cover'
-              key={index}
-              src={image.url}
-              alt={`Image ${index}`}
-              onClick={() => openModal(image.url, index)}
-            />
-            <span>{image.title}</span>
+          <div
+            key={`gallery-${index}`}
+            className='relative align-baseline flex flex-col'
+          >
+            <div
+              key={image.fileName}
+              className='relative flex flex-col justify-end h-[20vh] md:h-[50vh]'
+            >
+              <img
+                className='relative archiveItem object-contain max-w-full max-h-full cursor-pointer'
+                key={index}
+                src={image.url}
+                alt={`Image ${index}`}
+                onClick={() => openModal(image.url, index)}
+              />
+            </div>
+            <span className='mt-2 text-center'>{image.title}</span>
           </div>
         ))}
       </div>

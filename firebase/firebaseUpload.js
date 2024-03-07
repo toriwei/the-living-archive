@@ -3,7 +3,7 @@
 
 const data = require('./archiveMetadata.json')
 const db = require('./firebaseAdminConfig')
-const axios = require('axios')
+const axios = require('')
 const collectionRef = db.collection('data') // Firestore collection name
 async function addDataToFirestore(data) {
   for (const key in data) {

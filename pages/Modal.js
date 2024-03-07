@@ -42,8 +42,8 @@ function Modal({ imageData, currentIndex, onClose, file, onMarkerChange }) {
   return (
     <div className='fixed inset-0 flex items-center justify-center z-50'>
       <div className='modal-overlay fixed inset-0 bg-black opacity-50'></div>
-      <div className='modal bg-white p-4 relative z-10 w-1/2 overflow-hidden'>
-        <div className='modal-content px-4 flex flex-row relative'>
+      <div className='modal bg-white p-4 relative z-10 w-2/3 max-h-screen overflow-hidden'>
+        <div className='modal-content px-4 flex flex-col sm:flex-row relative'>
           <span
             className='close px-6 absolute top-2 right-2 text-2xl cursor-pointer'
             onClick={onClose}
@@ -58,7 +58,7 @@ function Modal({ imageData, currentIndex, onClose, file, onMarkerChange }) {
           <img
             src={imageData[currentImageIndex].url}
             alt='Large Image'
-            className='w-1/2 px-4 object-cover cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+            className='w-1/2 px-4 object-contain cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
             onClick={openFullscreen}
           />
           <div className='absolute top-1/2 right-0 transform -translate-y-1/2 flex flex-col'>
