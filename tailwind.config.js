@@ -1,4 +1,5 @@
 import { Config } from 'tailwindcss'
+import * as defaultTheme from 'tailwindcss/defaultTheme'
 
 const config = {
   content: [
@@ -17,6 +18,10 @@ const config = {
         'english-violet': '#56416A',
         rose: '#D1236C',
         'true-blue': '#5998C5',
+      },
+      screens: {
+        xs: '480px',
+        ...defaultTheme.screens,
       },
     },
   },

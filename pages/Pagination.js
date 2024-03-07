@@ -5,7 +5,7 @@ export default function Pagination({
   isCurrentPage,
 }) {
   return (
-    <div className='mt-4 text-english-violet'>
+    <div className='mt-0 mb-4 md:mt-4 md:mb-0 text-english-violet'>
       <span
         className='text-3xl cursor-pointer'
         onClick={() =>

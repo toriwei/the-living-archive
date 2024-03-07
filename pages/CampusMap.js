@@ -121,7 +121,7 @@ export default function CampusMap() {
   }
 
   return (
-    <div className='flex justify-center items-center h-screen'>
+    <div className='flex justify-center items-center h-[85vh]'>
       <GoogleMap
         mapContainerStyle={{ width: '80%', height: '80%' }}
         options={mapOptions}

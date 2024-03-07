@@ -13,26 +13,28 @@ function ItemData({ data }) {
     switch (itemData.source_type) {
       case 'Newspapers':
         newObj = {
-          title: itemData.title,
-          date: itemData.date,
-          page: itemData.page,
-          location: itemData.LMU_location,
-          section: itemData.section,
+          Title: itemData.title,
+          Date: itemData.date,
+          Page: itemData.page,
+          Location: itemData.LMU_location,
+          Section: itemData.section,
         }
         break
       case 'Yearbooks':
         newObj = {
-          title: itemData.source_metadata.Title,
-          date: itemData.date,
-          page: itemData.page,
-          location: itemData.LMU_location,
-          description: itemData.description,
+          Title: itemData.source_metadata.Title,
+          Date: itemData.date,
+          Page: itemData.page,
+          Location: itemData.LMU_location,
+          Description: itemData.description,
         }
         break
     }
 
     const elements = Object.keys(newObj).map((key) => {
-      if (key !== 'title') {
+      console.log('hello')
+      console.log(newObj[key])
+      if (key !== 'Title' && newObj[key] !== undefined) {
         return (
           <p key={key}>
             <span>{key}:</span> <span>{newObj[key]}</span>
@@ -44,7 +46,7 @@ function ItemData({ data }) {
 
     return (
       <div>
-        <p className='font-bold'>{newObj.title}</p>
+        <p className='font-bold'>{newObj.Title}</p>
         {elements}
       </div>
     )
