@@ -42,8 +42,8 @@ function Modal({ imageData, currentIndex, onClose, file, onMarkerChange }) {
   return (
     <div className='fixed inset-0 flex items-center justify-center z-50'>
       <div className='modal-overlay fixed inset-0 bg-black opacity-50'></div>
-      <div className='modal bg-white p-4 relative z-10 w-2/3 max-h-screen overflow-hidden'>
-        <div className='modal-content px-4 flex flex-col sm:flex-row relative'>
+      <div className='modal bg-white p-4 relative z-10 w-2/3 max-h-[80vh] overflow-hidden'>
+        <div className='modal-content px-4 flex flex-col md:flex-row relative'>
           <span
             className='close px-6 absolute top-2 right-2 text-2xl cursor-pointer'
             onClick={onClose}
