@@ -1,9 +1,8 @@
 // NOTE: if object is updated so that a specific attribute is no longer being
 // used, it must be manually deleted from firebase
-
 const data = require('./archiveMetadata.json')
 const db = require('./firebaseAdminConfig')
-const axios = require('')
+const axios = require('axios')
 const collectionRef = db.collection('data') // Firestore collection name
 async function addDataToFirestore(data) {
   for (const key in data) {
@@ -25,7 +24,6 @@ async function addDataToFirestore(data) {
         if (newData.hasOwnProperty('LMU_location')) {
           // TO DO: currently resets lat/long and newData every time existingData != newData
           // but should only reset if the lat/long is not there or needs to be updated
-          console.log('hello')
           newData = await setLatitudeAndLongitude(newData)
         }
 
@@ -39,15 +37,23 @@ async function addDataToFirestore(data) {
 }
 
 function deepEquals(existingData, newData) {
-  if (typeof existingData !== 'object') {
-    return existingData === newData
+  if (existingData === null && newData === null) {
+    return true // Both are null, consider them equal
   }
 
-  return (
-    Object.keys(existingData).length === Object.keys(newData).length &&
-    Object.keys(existingData).every((key) =>
-      deepEquals(existingData[key], newData[key])
-    )
+  if (typeof existingData !== 'object' || typeof newData !== 'object') {
+    return existingData === newData // Handle non-object comparison
+  }
+
+  const existingKeys = Object.keys(existingData)
+  const newKeys = Object.keys(newData)
+
+  if (existingKeys.length !== newKeys.length) {
+    return false // Different number of keys, not equal
+  }
+
+  return existingKeys.every((key) =>
+    deepEquals(existingData[key], newData[key])
   )
 }
 
@@ -68,7 +74,6 @@ async function setLatitudeAndLongitude(newData) {
       const { lat, lng } = result.geometry.location
       newData.lat = lat
       newData.long = lng
-      console.log(newData.LMU_location)
       // console.log(result)
       // console.log(lat)
       // console.log(lng)

@@ -22,27 +22,7 @@
     "LMU_location": "Alumni Mall",
     "description": "Three people dressed as ghosts, sitting in protest. Sign on left reads 'L.A can no longer tolerate your chauvinistic, homophobic, racist behavior. So Ed please RESIGN,' sign on right reads 'Germany had Hitler, Italy had Mussolini, America had Nixon, and we have... ED DAVIS!' ",
     "tags": ["protest"],
-    "source_metadata": {
-      "Title": "Lion's Pride (1976)",
-      "Date": 1976,
-      "Description": "The Loyola Marymount University yearbook for the 1975 - 1976 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "202 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1976",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/lions-pride-1976/60878",
-      "Download Date": "October 04 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "Lion's Pride (1976)"
   },
   "Lions_Pride_1976_47": {
     "source_type": "Yearbooks",
@@ -52,27 +32,7 @@
     "LMU_location": "Alumni Mall",
     "description": "Page caption reads 'a student's life is unique there is a need to study to play and occasionally protest.' Features photos of ghost protest, with a sign reading '“You’ve rejected the times, the democrats, the gays, women, Blacks, Chicanos, and the young… now it’s our turn we reject YOU.' ",
     "tags": ["protest"],
-    "source_metadata": {
-      "Title": "Lion's Pride (1976)",
-      "Date": 1976,
-      "Description": "The Loyola Marymount University yearbook for the 1975 - 1976 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "202 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1976",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/lions-pride-1976/60878",
-      "Download Date": "October 04 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "Lion's Pride (1976)"
   },
   "Loyolan_11_17_1999": {
     "source_type": "Newspapers",
@@ -106,34 +66,6 @@
     "LMU_location": "Pereira Hall",
     "tags": ["hate crime", "homophobia", "AGLA"]
   },
-  "The_Tower_1994_91": {
-    "source_type": "Yearbooks",
-    "date": "1994",
-    "page": 91,
-    "section": "Organizations",
-    "tags": ["Sursum Corda, Service Organization Community, AIDS"],
-    "source_metadata": {
-      "Title": "The Tower (1994)",
-      "Date": 1994,
-      "Description": "The Loyola Marymount University yearbook for the 1993 - 1994 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "352 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1994",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/the-tower-1994/64928",
-      "Download Date": "December 08 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
-  },
   "Lions_Pride_1978_34": {
     "source_type": "Yearbooks",
     "date": "1978",
@@ -141,56 +73,7 @@
     "section": "Administration",
     "description": "LMU Counseling department and list of counseling services, one of them being Sexuality Group.",
     "tags": ["counseling", "student services"],
-    "source_metadata": {
-      "Title": "Lion's Pride (1978)",
-      "Date": 1978,
-      "Description": "The Loyola Marymount University yearbook for the 1977 - 1978 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "210 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1978",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/lions-pride-1978/73188",
-      "Download Date": "December 11 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
-  },
-  "The_Tower_1991_116": {
-    "source_type": "Yearbooks",
-    "date": "1991",
-    "page": 116,
-    "section": "Clubs/Organizations",
-    "description": "Article about the Business Society. They were involved in AIDS Awareness Day.",
-    "tags": ["clubs", "organizations", "student life", "AIDS"],
-    "source_metadata": {
-      "Title": "The Tower (1991)",
-      "Date": 1991,
-      "Description": "The Loyola Marymount University yearbook for the 1990 - 1991 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "308 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1991",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/the-tower-1991/63971",
-      "Download Date": "December 11 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "Lion's Pride (1978)"
   },
   "The_Tower_1993_20": {
     "source_type": "Yearbooks",
@@ -199,27 +82,7 @@
     "section": "Activities",
     "description": "The AIDS Memorial Quilt by the NAMES Project was brought to LMU in March 1992. There was a ceremony and a panel with celebrities and the LMU communitity.",
     "tags": ["AIDS"],
-    "source_metadata": {
-      "Title": "The Tower (1993)",
-      "Date": 1993,
-      "Description": "The Loyola Marymount University yearbook for the 1992 - 1993 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "304 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1993",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/the-tower-1993/64614",
-      "Download Date": "December 11 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "The Tower (1993)"
   },
   "The_Tower_1994_126": {
     "source_type": "Yearbooks",
@@ -228,27 +91,7 @@
     "section": "student life",
     "description": "Discussion of the AGLS and their fight for getting recognition as a student organization.",
     "tags": ["student life", "organizations", "AGLS"],
-    "source_metadata": {
-      "Title": "The Tower (1994)",
-      "Date": 1994,
-      "Description": "The Loyola Marymount University yearbook for the 1993 - 1994 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "352 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1994",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/the-tower-1994/64928",
-      "Download Date": "December 08 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "The Tower (1994)"
   },
   "The_Tower_1994_127": {
     "source_type": "Yearbooks",
@@ -257,27 +100,7 @@
     "section": "student life",
     "description": "Continued discussion of the AGLS and their fight for getting recognition as a student organization.",
     "tags": ["student life", "organizations", "AGLS"],
-    "source_metadata": {
-      "Title": "The Tower (1994)",
-      "Date": 1994,
-      "Description": "The Loyola Marymount University yearbook for the 1993 - 1994 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "352 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1994",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/the-tower-1994/64928",
-      "Download Date": "December 08 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "The Tower (1994)"
   },
   "The_Tower_1995_20": {
     "source_type": "Yearbooks",
@@ -286,27 +109,7 @@
     "section": "Activities",
     "description": "An article about the AIDS Walk. Organized by ASLMU, students formed 'Team LMU' and participated for the third ",
     "tags": ["ASLMU", "AIDS"],
-    "source_metadata": {
-      "Title": "The Tower (1995)",
-      "Date": 1995,
-      "Description": "The Loyola Marymount University yearbook for the 1994 - 1995 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "368 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1995",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/the-tower-1995/65136",
-      "Download Date": "December 11 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "The Tower (1995)"
   },
   "The_Tower_1995_99": {
     "source_type": "Yearbooks",
@@ -315,27 +118,7 @@
     "section": "Organizations",
     "description": "Club photo for Association of Gay and Lesbian Students with a note saying that it is an unrecognized organization at the university.",
     "tags": ["AGLS", "recognition", "National Coming Out Day"],
-    "source_metadata": {
-      "Title": "The Tower (1995)",
-      "Date": 1995,
-      "Description": "The Loyola Marymount University yearbook for the 1994 - 1995 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "368 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1995",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/the-tower-1995/65136",
-      "Download Date": "December 11 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "The Tower (1995)"
   },
   "The_Tower_1995_84": {
     "source_type": "Yearbooks",
@@ -351,27 +134,7 @@
       "student engagement",
       "activism"
     ],
-    "source_metadata": {
-      "Title": "The Tower (1995)",
-      "Date": 1995,
-      "Description": "The Loyola Marymount University yearbook for the 1994 - 1995 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "368 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1995",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/the-tower-1995/65136",
-      "Download Date": "December 11 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "The Tower (1995)"
   },
   "The_Tower_1995_85": {
     "source_type": "Yearbooks",
@@ -387,27 +150,7 @@
       "student engagement",
       "activism"
     ],
-    "source_metadata": {
-      "Title": "The Tower (1995)",
-      "Date": 1995,
-      "Description": "The Loyola Marymount University yearbook for the 1994 - 1995 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "368 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1995",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/the-tower-1995/65136",
-      "Download Date": "December 11 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "The Tower (1995)"
   },
   "The_Tower_1995_131": {
     "source_type": "Yearbooks",
@@ -416,27 +159,7 @@
     "section": "Student Life",
     "description": "A featured article from the Loyolan discussing Newt Gingrich.",
     "tags": ["politics"],
-    "source_metadata": {
-      "Title": "The Tower (1995)",
-      "Date": 1995,
-      "Description": "The Loyola Marymount University yearbook for the 1994 - 1995 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "368 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1995",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/the-tower-1995/65136",
-      "Download Date": "December 11 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "The Tower (1995)"
   },
   "The_Tower_1989_Advertisement": {
     "source_type": "Yearbooks",
@@ -445,26 +168,280 @@
     "section": "",
     "description": "A message left in the Advertisements",
     "tags": [],
-    "source_metadata": {
-      "Title": "Lion's Pride (1978)",
-      "Date": 1978,
-      "Description": "The Loyola Marymount University yearbook for the 1977 - 1978 academic year.",
-      "Subject": "Catholic universities and colleges--California--Los Angeles; Student activities--California--Los Angeles; College sports--California--Los Angeles;",
-      "Names": "Loyola Marymount University--Students--Yearbooks; Loyola Marymount University--Sports; Loyola Marymount University--Students; Loyola Marymount University--Undergraduates;",
-      "Spatial": "Los Angeles (Calif.); Westchester (Los Angeles, Calif.);",
-      "Source": "Department of Archives and Special Collections, William H. Hannon Library, Loyola Marymount University",
-      "Is Part Of": "Loyola Marymount University Yearbook Collection",
-      "Sponsorship": "This yearbook was digitized by LMU Student Media.",
-      "Format Extent": "210 p.",
-      "Type Value": "Yearbooks",
-      "Library Catalog Record": "http://linus.lmu.edu/record=b1012843~S21",
-      "Call Number": "LD3131.L763 T6 1978",
-      "Language": "eng",
-      "Rights": "https://library.lmu.edu/archivesandspecialcollections/copyrightandreproductionpolicy/",
-      "Collection(s)": "Loyola Marymount University Yearbook Collection",
-      "Resource URL": "https://lmudigitalcollections.quartexcollections.com/Documents/Detail/lions-pride-1978/73188",
-      "Download Date": "December 11 2023",
-      "Publisher and Resource Name": "William H. Hannon Library"
-    }
+    "title": "Lion's Pride (1978)"
+  },
+  "Lions_Pride_1976_46-47": {
+    "date": 1976,
+    "description": "Students dressed as ghosts and sitting in protest against Ed Davis, the chief of the Los Angeles Police Department. Signs on bottom-left photo say 'L.A can no longer tolerate your chauvinistic, homophobic, racist behavior. So Ed please RESIGN' and 'Germany had Hitler, Italy had Mussolini, America had Nixon, and we have... ED DAVIS!' Sign on bottom-right says “You’ve rejected the times, the democrats, the gays, women, Blacks, Chicanos, and the young… now it’s our turn we reject YOU.",
+    "LMU_location": "Alumni Mall",
+    "page": "46-47",
+    "section": "Activities",
+    "source_name": "Lion's Pride (1976)",
+    "source_type": "Yearbooks",
+    "tags": ["protest"],
+    "title": "Ed Davis Protest (1976)"
+  },
+  "Lions_Pride_1977_195": {
+    "date": 1977,
+    "description": "Senior quote by Maria Frank expresses gratitude for people and communities at LMU, including \"to Kathy who left me for another woman.\"",
+    "page": 195,
+    "section": "Senior Quotes",
+    "source_name": "Lion's Pride (1977)",
+    "source_type": "Yearbooks",
+    "tags": ["senior quote"],
+    "title": "Senior Quote Dedication (1977)"
+  },
+  "Lions_Pride_1978_197": {
+    "date": 1978,
+    "description": "Senior quote by Carol Lyles advocating for affirmative action programs.",
+    "page": 197,
+    "section": "Senior Quotes",
+    "source_name": "Lion's Pride (1978)",
+    "source_type": "Yearbooks",
+    "tags": ["senior quote"],
+    "title": "Affirmative Action Senior Quote (1978)"
+  },
+  "Lions_Pride_1978_199-200": {
+    "date": 1978,
+    "description": "Senior quote by Darryl J. Tillman: \"United States President 1993 The greatest love of all Loves is love with no gender I hope you remember me when you are successful Enjoy",
+    "page": "199-200",
+    "section": "Senior Quotes",
+    "source_name": "Lion's Pride (1978)",
+    "source_type": "Yearbooks",
+    "tags": ["senior quote"],
+    "title": "Love and Gender Senior Quote (1978)"
+  },
+  "The_Tower_1991_116": {
+    "author": "Borzumato",
+    "date": 1991,
+    "description": "Spread of the Business Society and their activities which included an AIDS Awareness Day.",
+    "page": 116,
+    "section": "Clubs/Organizations",
+    "source_name": "The Tower (1991)",
+    "source_type": "Yearbooks",
+    "tags": ["clubs", "student life", "AIDS", "business", "Business Society"],
+    "title": "Preparing to Climb the Ladder of Success (1991)"
+  },
+  "The_Tower_1991_118-119": {
+    "date": 1991,
+    "description": "Spread of Peace Studies and Today Not Tomorrow, two student organizations focused on social justice. A photo on page 119 shows members of the Peace Studies organizations holding signs that advocate for the right to have an abortion.",
+    "LMU_location": "Alumni Mall",
+    "page": "118-119",
+    "section": "Clubs/Organizations",
+    "source_name": "The Tower (1991)",
+    "source_type": "Yearbooks",
+    "tags": [
+      "clubs",
+      "Peace Studies",
+      "Today Not Tomorrow",
+      "student life",
+      "protest",
+      "abortion",
+      "clubs"
+    ],
+    "title": "Politically Aware Groups Aim for Change (1991)"
+  },
+  "The_Tower_1992_58-59": {
+    "author": "Trina Good",
+    "date": 1992,
+    "description": "Feature for two student organizations, Students for Life and the Debate Team. Students for Life was an anti-abortion club that held protests at LA abortion clinics and brought speakers to campus.",
+    "page": "58-59",
+    "section": "Clubs",
+    "source_name": "The Tower (1992)",
+    "source_type": "Yearbooks",
+    "tags": ["clubs", "Students for Life", "abortion", "student life"],
+    "title": "Arguing for a Cause (1992)"
+  },
+  "The_Tower_1992_148-149": {
+    "author": "Margaret Koury, Ryan Bolz, Rick Majchrzak",
+    "date": 1992,
+    "description": "Descriptions of the Panhellenic Council and Inter Franternity Council and their respective events. For the second annual All Greek Dance Marathon, one of the events for Greek Week, Panhellenic, with support from IFC, raised money for babies with AIDS and AIDS research.",
+    "page": "148-149",
+    "section": "Greeks",
+    "source_name": "The Tower (1992)",
+    "source_type": "Yearbooks",
+    "tags": [
+      "clubs",
+      "AIDS",
+      "philanthropy",
+      "student life",
+      "Panhellenic Council",
+      "Inter Fraternity Council",
+      "sorority and fraternity life",
+      "Greek Week",
+      "Dance Marathon"
+    ],
+    "title": "Panhellenic and Inter Fraternity Dance Marathon for AIDS Research (1992)"
+  },
+  "The_Tower_1992_151": {
+    "author": "R. Bolz",
+    "date": 1992,
+    "description": "Summary of Delta Gamma's achievements and activities of the year, such as their participation in a 5K AIDS walk. The sorority were one of nine out of one hundred thirty chapters to receive the Patricia Peterson Danielson Award for \"overall excellence in programming, campus involvement and scholastic achievement.",
+    "page": 151,
+    "section": "Greeks",
+    "source_name": "The Tower (1992)",
+    "source_type": "Yearbooks",
+    "tags": [
+      "clubs",
+      "AIDS",
+      "philanthropy",
+      "student life",
+      "Panhellenic Council",
+      "sorority and fraternity life",
+      "Delta Gamma"
+    ],
+    "title": "Delta Gamma: Patricia Peterson Danielson Award Achieved (1992)"
+  },
+  "The_Tower_1992_162": {
+    "author": "Sherry Boado",
+    "date": 1992,
+    "description": "Article of graduating senior Pam Jones and her various campus involvements. Involved in many organizations focused on education and supporting the community, she helped bring the AIDS Quilt to LMU, an event that cost $80,000, to raise awareness for AIDS research.",
+    "page": 162,
+    "section": "Seniors",
+    "source_name": "The Tower (1992)",
+    "source_type": "Yearbooks",
+    "tags": ["AIDS", "AIDS Quilt"],
+    "title": "Pammin it Up (1992)"
+  },
+  "The_Tower_1992_200": {
+    "date": 1992,
+    "description": "List of the faculty of the College of Liberal Arts without a yearbook photo. Includes Nancy Jabbra, professor in the Women's Studies department. This was the first documented mention of the Women's Studies Department in the yearbooks.",
+    "page": 200,
+    "section": "Faculty",
+    "source_name": "The Tower (1992)",
+    "source_type": "Yearbooks",
+    "tags": ["faculty", "Women's Studies"],
+    "title": "First Mention of Women's Studies Department Faculty (1992)"
+  },
+  "The_Tower_1993_152": {
+    "author": "Jono Smith",
+    "date": 1993,
+    "description": "Article highlighting senior Scott Klier. The Theatre major reflects on the ties between theatre and the AIDS virus, saying \"AIDS is a major crisis that affects what I do... It is important for the theatre community to be very supportive as we have the opportunity to break down some of the sterotypes and labeling.",
+    "page": 152,
+    "section": "Seniors",
+    "source_name": "The Tower (1993)",
+    "source_type": "Yearbooks",
+    "tags": ["Theatre Arts", "AIDS"],
+    "title": "Senior Highlight: Scott Klier (1993)"
+  },
+  "The_Tower_1993_158": {
+    "author": "Jono Smith",
+    "date": 1993,
+    "description": "Senior highlight page for Mike Luken and Kelly Odell. Kelly discusses being a part of a committee that helped bring the AIDS Quilt to LMU and seeing it in Gersten Pavillion as one of her most memorable moments during her time in college.",
+    "LMU_location": "Gersten Pavillion",
+    "page": 152,
+    "section": "Seniors",
+    "source_name": "The Tower (1993)",
+    "source_type": "Yearbooks",
+    "tags": ["AIDS", "AIDS Quilt"],
+    "title": "Senior Highlight: Mike Luken and Kelly Odell (1993)"
+  },
+  "The_Tower_1993_168": {
+    "author": "Jono Smith",
+    "date": 1993,
+    "description": "Senior Mary Beth Padberg reflects on her time in Gryphon Circle, where she served as President, discussing the group's \"strong committment to service\" and recalling the AIDS Walk Los Angeles as one of many memorable moments.",
+    "page": 168,
+    "section": "Seniors",
+    "source_name": "The Tower (1993)",
+    "source_type": "Yearbooks",
+    "tags": ["AIDS", "Service Organization Community", "Gryphon Circle"],
+    "title": "Senior Highlight: Mary Beth Padberg (1993)"
+  },
+  "The_Tower_1993_178": {
+    "author": "Vickie Harris and Sonja Leonard",
+    "date": 1993,
+    "description": "Description of Panhellenic and Inter-Fraternity's year. For the Greek pledge education seminar in the fall, Panhellenic and IFC worked with the Santa Monica Rape Treament Center to learn about topics such as  study skills, time management, date rape, and AIDS.",
+    "page": 178,
+    "section": "Pan./IFC",
+    "source_name": "The Tower (1993)",
+    "source_type": "Yearbooks",
+    "tags": [
+      "AIDS",
+      "Panhellenic Council",
+      "Inter Fraternity Council",
+      "student life",
+      "sorority and fraternity life"
+    ],
+    "title": "Panhellenic & IFC: Working as a Team (1993)"
+  },
+  "The_Tower_1994_8-9": {
+    "date": 1994,
+    "description": "AIDS WALK Los Angeles, listed as occuring on September 19 1994, is highlighted as one of the notable activities in the Activites section title page.",
+    "page": "8-9",
+    "section": "Activities",
+    "source_name": "The Tower (1994)",
+    "source_type": "Yearbooks",
+    "tags": ["AIDS"],
+    "title": "AIDS WALK Los Angeles (1994)"
+  },
+  "The_Tower_1994_20": {
+    "author": "Nicole Drodio",
+    "date": 1994,
+    "description": "An article detailing the Theatre's department performance of Lanford Wilson's \"Fifth of July,\" a play taking place in the 1970s that discusses topics such as \"the Vietnam War, to homosexual relationships, to the heartache of a family being torn apart.",
+    "page": 20,
+    "section": "Activities",
+    "source_name": "The Tower (1994)",
+    "source_type": "Yearbooks",
+    "tags": ["relationships", "Theatre Arts"],
+    "title": "Declaring Independence (1994)"
+  },
+  "The_Tower_1994_91": {
+    "author": "Monica Labelle",
+    "date": 1994,
+    "description": "Recap of Sursum Corda Service Organization's placements andactivities. A photo shows some Sursum Corda members participating in the AIDS Walk LA to raise money for AIDS research.",
+    "page": 91,
+    "section": "Activities",
+    "source_name": "The Tower (1994)",
+    "source_type": "Yearbooks",
+    "tags": ["AIDS", "Sursum Corda", "Service Organization Community"],
+    "title": "Lifting Up Our Hearts: Sursum Corda (1994)"
+  },
+  "The_Tower_1994_114-115": {
+    "author": "Stuart Roch and Toni Flora",
+    "date": 1994,
+    "description": "An article discussing attitudes and campus resources regarding sex, contraception, STDs, AIDS, and date rape are discussed, with students expressing the need for more on-campus support regarding these topics.",
+    "page": "114-115",
+    "section": "Student Life",
+    "source_name": "The Tower (1994)",
+    "source_type": "Yearbooks",
+    "tags": [
+      "AIDS",
+      "student life",
+      "Student Health Center",
+      "abortion",
+      "contraception"
+    ],
+    "title": "Sex & The College Student (1994)"
+  },
+  "The_Tower_1994_126-127": {
+    "author": "Stuart Roch, Michael Gelfo, and Casey Caldwell",
+    "date": 1994,
+    "description": "Details and student opinions on LMU's Association of Gay and Lesbian Students, an organization fighting for on-campus recognition but was refused by the Uninversity.",
+    "page": "126-127",
+    "section": "Student Life",
+    "source_name": "The Tower (1994)",
+    "source_type": "Yearbooks",
+    "tags": [
+      "AIDS",
+      "AGLS",
+      "Association of Gay and Lesbian Students",
+      "service"
+    ],
+    "title": "A Matter of Recognition (1994)"
+  },
+  "The_Tower_1994_128-129": {
+    "author": "Kelly MacAuliffe",
+    "date": 1994,
+    "description": "Gryphon Circle and Sursum Corda co-sponsored 25 LMU students to walk as Team LMU in the AIDS Walk LA for the second year in a row.",
+    "section": "Student Life",
+    "source_name": "The Tower (1994)",
+    "source_type": "Yearbooks",
+    "tags": [
+      "AIDS",
+      "Service Organization Community",
+      "Gryphon Circle",
+      "Sursum Corda"
+    ],
+    "title": "More Than Life (1994)"
   }
 }
