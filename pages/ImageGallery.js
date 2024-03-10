@@ -25,28 +25,11 @@ export async function fetchImageData() {
         )
         const docSnap = await getDoc(docRef)
         const itemData = docSnap.data()
-        const newObj = (() => {
-          switch (itemData.source_type) {
-            case 'Newspapers':
-              return {
-                title: itemData.title,
-                section: itemData.section,
-              }
-            case 'Yearbooks':
-              return {
-                title: itemData.source_metadata.Title,
-                location: itemData.LMU_location,
-                description: itemData.description,
-              }
-            default:
-              return {}
-          }
-        })()
 
         return {
           url,
           fileName,
-          title: newObj.title,
+          title: itemData.title,
           obj: itemData,
         }
       })

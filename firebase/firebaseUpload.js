@@ -1,9 +1,8 @@
 // NOTE: if object is updated so that a specific attribute is no longer being
 // used, it must be manually deleted from firebase
-
 const data = require('./archiveMetadata.json')
 const db = require('./firebaseAdminConfig')
-const axios = require('')
+const axios = require('axios')
 const collectionRef = db.collection('data') // Firestore collection name
 async function addDataToFirestore(data) {
   for (const key in data) {
@@ -39,16 +38,26 @@ async function addDataToFirestore(data) {
 }
 
 function deepEquals(existingData, newData) {
-  if (typeof existingData !== 'object') {
-    return existingData === newData
-  }
+  function deepEquals(existingData, newData) {
+    if (existingData === null && newData === null) {
+      return true // Both are null, consider them equal
+    }
 
-  return (
-    Object.keys(existingData).length === Object.keys(newData).length &&
-    Object.keys(existingData).every((key) =>
+    if (typeof existingData !== 'object' || typeof newData !== 'object') {
+      return existingData === newData // Handle non-object comparison
+    }
+
+    const existingKeys = Object.keys(existingData)
+    const newKeys = Object.keys(newData)
+
+    if (existingKeys.length !== newKeys.length) {
+      return false // Different number of keys, not equal
+    }
+
+    return existingKeys.every((key) =>
       deepEquals(existingData[key], newData[key])
     )
-  )
+  }
 }
 
 async function setLatitudeAndLongitude(newData) {

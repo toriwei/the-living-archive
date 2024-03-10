@@ -22,7 +22,7 @@ function ItemData({ data }) {
         break
       case 'Yearbooks':
         newObj = {
-          Title: itemData.source_metadata.Title,
+          Title: itemData.title,
           Date: itemData.date,
           Page: itemData.page,
           Location: itemData.LMU_location,
@@ -32,8 +32,6 @@ function ItemData({ data }) {
     }
 
     const elements = Object.keys(newObj).map((key) => {
-      console.log('hello')
-      console.log(newObj[key])
       if (key !== 'Title' && newObj[key] !== undefined) {
         return (
           <p key={key}>
