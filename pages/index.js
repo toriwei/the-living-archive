@@ -1,17 +1,19 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 
-import ImageGallery from './ImageGallery'
-import CampusMap from './CampusMap'
-import About from './About.js'
+import MainView from './MainView.js'
+import SubmissionPage from './SubmissionPage.js'
 export default function Home() {
   const [isPastGallery, setIsPastGallery] = useState(false)
+  const [pageView, setPageView] = useState('MainView')
 
+  const handleMainViewLink = () => {
+    pageView !== 'MainView' ? setPageView('MainView') : ''
+  }
   useEffect(() => {
     const handleScroll = () => {
-      const imageGallery = document.getElementById('image-gallery')
-      const galleryPosition = imageGallery.offsetTop
-
+      const banner = document.getElementById('banner')
+      const galleryPosition = banner.offsetHeight
       setIsPastGallery(window.scrollY > galleryPosition)
     }
 
@@ -43,18 +45,41 @@ export default function Home() {
             <nav className='flex flex-col font-bold text-md md:text-2xl'>
               <ul className='flex flex-row md:flex-col md:mx-auto md:gap-x-0 gap-x-8'>
                 <li className='pb-4'>
-                  <a href='#image-gallery' className='hover:text-rose'>
+                  <a
+                    onClick={handleMainViewLink}
+                    href='#image-gallery'
+                    className='hover:text-rose'
+                  >
                     Gallery
                   </a>
                 </li>
                 <li className='pb-4'>
-                  <a href='#campus-map' className='hover:text-rose'>
+                  <a
+                    onClick={handleMainViewLink}
+                    href='#campus-map'
+                    className='hover:text-rose'
+                  >
                     Map
                   </a>
                 </li>
-                <li>
-                  <a href='#about' className='hover:text-rose'>
+                <li className='pb-4'>
+                  <a
+                    onClick={handleMainViewLink}
+                    href='#about'
+                    className='hover:text-rose'
+                  >
                     About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={() => {
+                      setPageView('SubmissionPage')
+                    }}
+                    href='#submit'
+                    className='hover:text-rose'
+                  >
+                    Submit
                   </a>
                 </li>
               </ul>
@@ -62,7 +87,10 @@ export default function Home() {
           </div>
         </aside>
         <main className='md:w-5/6 mb-24'>
-          <div className='bg-english-violet flex flex-col md:flex-row mb-12 h-1/12 w-auto'>
+          <div
+            id='banner'
+            className='bg-english-violet flex flex-col md:flex-row mb-12 h-1/12 w-auto'
+          >
             <div className='flex-1 p-8'>
               <h2 className='lg:text-5xl md:text-3xl text-2xl font-bold text-white lg:pt-36 md:pt-24'>
                 EXPLORING LGBTQ+ HISTORY AT LMU
@@ -82,21 +110,9 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className='sections flex flex-col gap-y-8 px-4 md:px-0'>
-            <section id='image-gallery'>
-              <h2 className='text-5xl font-bold text-english-violet'>
-                Gallery
-              </h2>
-              <ImageGallery />
-            </section>
-            <section id='campus-map'>
-              <h2 className='text-5xl font-bold text-english-violet'>Map</h2>
-              <CampusMap id='campus-map' />
-            </section>
-            <section id='about'>
-              <h2 className='text-5xl font-bold text-english-violet'>About</h2>
-              <About />
-            </section>
+          <div>
+            {pageView === 'MainView' && <MainView />}
+            {pageView === 'SubmissionPage' && <SubmissionPage />}
           </div>
         </main>
       </div>
