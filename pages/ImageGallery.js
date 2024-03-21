@@ -7,34 +7,36 @@ import { doc, getDoc } from 'firebase/firestore'
 import Modal from './Modal'
 import Pagination from './Pagination'
 
-export async function fetchImageData() {
+export async function fetchImageData(database_collection) {
   try {
-    const archiveRef = ref(storage, 'archive')
+    const archiveRef = ref(storage, database_collection)
     const imagesList = await listAll(archiveRef)
 
     const images = await Promise.all(
-      imagesList.items.map(async (item) => {
-        const url = await getDownloadURL(item)
-        const metadata = await getMetadata(item)
-        const fileName = metadata.name
+      imagesList.items
+        // .filter((item) => !item.name.startsWith('US')) // TODO: filter out unapproved
+        .map(async (item) => {
+          const url = await getDownloadURL(item)
+          const metadata = await getMetadata(item)
+          const fileName = metadata.name
 
-        const docRef = doc(
-          firestore,
-          'data',
-          fileName.substring(0, fileName.indexOf('.'))
-        )
-        const docSnap = await getDoc(docRef)
-        const itemData = docSnap.data()
+          // TODO: test case, skip over image if there is no corresponding fileName
+          const docRef = doc(
+            firestore,
+            'data',
+            fileName.substring(0, fileName.indexOf('.'))
+          )
+          const docSnap = await getDoc(docRef)
+          const itemData = docSnap.data()
 
-        return {
-          url,
-          fileName,
-          title: itemData.title,
-          obj: itemData,
-        }
-      })
+          return {
+            url,
+            fileName,
+            title: itemData.title,
+            obj: itemData,
+          }
+        })
     )
-
     const imageOrder = images.sort((a, b) => {
       if (new Date(a.obj.date) - new Date(b.obj.date) !== 0) {
         return new Date(a.obj.date) - new Date(b.obj.date)
@@ -48,7 +50,7 @@ export async function fetchImageData() {
     return []
   }
 }
-function ImageGallery() {
+function ImageGallery({ database_collection }) {
   const PAGE_SIZE = 16
   const [imageData, setImageData] = useState([])
   const [selectedName, setSelectedName] = useState(null)
@@ -88,7 +90,7 @@ function ImageGallery() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const images = await fetchImageData()
+        const images = await fetchImageData(database_collection)
         setImageData(images)
       } catch (error) {
         console.error('Error fetching images from Firebase Storage:', error)

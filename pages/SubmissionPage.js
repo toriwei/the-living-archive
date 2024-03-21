@@ -1,7 +1,11 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useRef, useState } from 'react'
+import { storage, firestore } from '../firebase/firebaseConfig'
+import { ref, uploadBytesResumable } from 'firebase/storage'
+import { doc, setDoc } from 'firebase/firestore'
+
 export default function SubmissionPage() {
-  const [responses, setResponses] = useState({
+  const initialState = {
     name: '',
     displayName: false,
     email: '',
@@ -15,53 +19,99 @@ export default function SubmissionPage() {
     notes: '',
     permission: false,
     adminApproval: false,
-  })
+    file: null,
+    generatedFileName: '',
+  }
+  const [responses, setResponses] = useState(initialState)
+  const fileInputRef = useRef(null)
+
+  const generateFileName = (title) => {
+    let fileName = 'US_'
+    fileName += Math.floor(1000 + Math.random() * 9000) // 4-digit randomized value
+
+    // extract title and extension
+    const match = title.match(/^(.*?)(\.[^.]+)?$/)
+    const extractedTitle = match[1]
+    const extension = match[2] || '' // empty string in case no extension
+
+    if (extractedTitle) {
+      fileName += '_' + extractedTitle.replace(/\s+/g, '_')
+      // .replace(/\b\w/g, (char) => char.toUpperCase())
+    }
+    fileName += extension
+    return fileName
+  }
 
   const handleChange = (e) => {
     const name = e.target.id
     let value = e.target.value
-    // console.log(`BEFORE: ${name} --- ${value}`)
-    if (name === 'date') {
-      // TO DO: stronger testing
-      // Replace "-" with "/"
-      value = value.replace(/-/g, '/')
-      value = value.replace(/[^\d/]/g, '')
 
-      if (/^\d{4}$/.test(value)) {
-        // Accept "YYYY" format as is
-        // Keep only the first 4 characters
-        value = value.slice(0, 4)
-      } else if (/^\d{2}\d{2}\d{4}$/.test(value)) {
-        // Format "DDMMYYYY" to "DD/MM/YYYY"
-        value = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4)}`
-      }
+    switch (name) {
+      case 'file':
+        value = e.target.files[0]
+        responses.generatedFileName = generateFileName(value.name)
+        break
+      case 'date':
+        value = value.replace(/-/g, '/').replace(/[^\d/]/g, '')
+        if (/^\d{4}$/.test(value)) {
+          value = value.slice(0, 4) // Accept "YYYY" format as is
+        } else if (/^\d{2}\d{2}\d{4}$/.test(value)) {
+          value = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4)}` // Format "DDMMYYYY" to "DD/MM/YYYY"
+        }
+        break
+      case 'tags':
+        value = value.split(',')
+        break
+      case 'displayName':
+      case 'permission':
+        value = e.target.checked
+        break
+      default:
+        break
     }
 
-    if (name === 'tags') {
-      value = value.split(',')
-    }
-    if (name === 'displayName' || name === 'permission') {
-      value = e.target.checked
-      console.log(e.target.checked)
-    }
     setResponses((prevData) => ({
       ...prevData,
       [name]: value,
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('SUBMISSION RESPONSE')
-    console.log(responses)
-    for (const key in responses) {
-      if (Object.hasOwnProperty.call(responses, key)) {
-        setResponses((prevData) => ({
-          ...prevData,
-          [key]: key === 'displayName' || key === 'permission' ? false : '',
-        }))
+
+    // storage upload
+    if (responses.file) {
+      const storageRef = ref(
+        storage,
+        'submission_archive/' + responses.generatedFileName
+      )
+      try {
+        await uploadBytesResumable(storageRef, responses.file)
+        console.log('File uploaded successfully')
+      } catch (error) {
+        console.error('Error uploading file:', error)
+        return
       }
+    } else {
+      // TODO: figure out error handling
     }
+
+    const { file, ...dataToUpload } = responses
+    const docName = dataToUpload.generatedFileName.split('.')[0]
+
+    // Upload data to Firestore
+    try {
+      const docRef = doc(firestore, 'submission_data', docName)
+      await setDoc(docRef, dataToUpload)
+      console.log('Data uploaded to Firestore successfully')
+    } catch (error) {
+      console.error('Error uploading data to Firestore:', error)
+      return
+    }
+
+    // Clear form data
+    fileInputRef.current.value = null
+    setResponses(initialState)
   }
   return (
     <div className='gap-y-8	flex flex-col px-4 md:px-0 text-english-violet'>
@@ -112,6 +162,19 @@ export default function SubmissionPage() {
         </div>
         <div className='item flex flex-col gap-y-4'>
           <h3 className='text-3xl font-bold'>Item</h3>
+          <div>
+            <label htmlFor='file' className='block'>
+              Upload File (JPG/JPEG/PDF):
+            </label>
+            <input
+              ref={fileInputRef}
+              type='file'
+              id='file'
+              accept='.jpg, .jpeg, .pdf' // Specify accepted file types
+              onChange={handleChange}
+              className='border border-english-violet px-2 py-1 rounded-md'
+            />
+          </div>
           <div>
             <label htmlFor='title' className='block'>
               Title:
