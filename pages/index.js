@@ -26,9 +26,9 @@ export default function Home() {
 
   return (
     <div>
-      <div className='md:mt-12 flex md:flex-row flex-col'>
+      <div className='flex md:flex-row flex-col'>
         <aside
-          className={`pt-6 md:pt-0 flex flex-row items-end md:items-center md:flex-col justify-between md:justify-start md:h-screen top-0 md:w-1/6 text-english-violet text-lg px-4 md:px-2 sticky z-50 ${
+          className={`md:ml-6 pt-6 md:pt-12 flex flex-row items-end md:items-start md:flex-col justify-between md:justify-start md:h-screen top-0 md:w-1/6 text-english-violet text-lg px-4 md:px-2 sticky z-50 ${
             isPastGallery
               ? 'bg-english-violet text-white'
               : 'bg-white text-english-violet'
@@ -86,7 +86,7 @@ export default function Home() {
             </nav>
           </div>
         </aside>
-        <main className='md:w-5/6 mb-24'>
+        <main className='md:mt-12 md:w-5/6 mb-24'>
           <div
             id='banner'
             className='bg-english-violet flex flex-col md:flex-row mb-12 h-1/12 w-auto'
