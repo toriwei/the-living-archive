@@ -77,7 +77,8 @@ export default function CampusMap() {
 
   useEffect(() => {
     const locationData = async () => {
-      const images = await fetchImageData()
+      const images = await fetchImageData('archive')
+      console.log(images)
 
       const validMarkers = images.filter(
         (image) =>
@@ -92,7 +93,7 @@ export default function CampusMap() {
         return acc
       }, {})
 
-      console.log('group', groupedMarkers)
+      // console.log('group', groupedMarkers)
 
       const adjustedMarkers = Object.values(groupedMarkers).flatMap(
         (cluster) => {
