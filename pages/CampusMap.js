@@ -77,14 +77,14 @@ export default function CampusMap() {
 
   useEffect(() => {
     const locationData = async () => {
-      const images = await fetchImageData('archive')
-      console.log(images)
+      const images = await fetchImageData('archive', 'data')
+      // console.log(images)
 
       const validMarkers = images.filter(
         (image) =>
           image.obj.hasOwnProperty('lat') && image.obj.hasOwnProperty('long')
       )
-      console.log('MARKERS', validMarkers)
+      // console.log('MARKERS', validMarkers)
 
       const groupedMarkers = validMarkers.reduce((acc, image) => {
         const location = image.obj.LMU_location || 'none'

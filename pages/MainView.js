@@ -11,7 +11,7 @@ export default function MainView(section) {
     <div className='sections flex flex-col gap-y-8 px-4 md:px-0'>
       <section id='image-gallery'>
         <h2 className='text-5xl font-bold text-english-violet'>Gallery</h2>
-        <ImageGallery database_collection='archive' />
+        <ImageGallery storageFolder='archive' firestoreFolder='data' />
       </section>
       <section id='campus-map'>
         <h2 className='text-5xl font-bold text-english-violet'>Map</h2>

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 
 import MainView from './MainView.js'
 import SubmissionPage from './SubmissionPage.js'
+import AdminPage from './AdminPage.js'
+
 export default function Home() {
   const [isPastGallery, setIsPastGallery] = useState(false)
   const [pageView, setPageView] = useState('MainView')
@@ -71,7 +73,9 @@ export default function Home() {
                     About
                   </a>
                 </li>
-                <li>
+                <hr className='pb-4 fill-english-violet' />
+
+                <li className='pb-4'>
                   <a
                     onClick={() => {
                       setPageView('SubmissionPage')
@@ -80,6 +84,17 @@ export default function Home() {
                     className='hover:text-rose'
                   >
                     Submit
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={() => {
+                      setPageView('AdminPage')
+                    }}
+                    href='#admin'
+                    className='hover:text-rose'
+                  >
+                    Admin
                   </a>
                 </li>
               </ul>
@@ -113,6 +128,7 @@ export default function Home() {
           <div>
             {pageView === 'MainView' && <MainView />}
             {pageView === 'SubmissionPage' && <SubmissionPage />}
+            {pageView === 'AdminPage' && <AdminPage />}
           </div>
         </main>
       </div>
