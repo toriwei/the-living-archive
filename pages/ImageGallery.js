@@ -7,9 +7,9 @@ import { doc, getDoc } from 'firebase/firestore'
 import Modal from './Modal'
 import Pagination from './Pagination'
 
-export async function fetchImageData(database_collection) {
+export async function fetchImageData(storageFolder, firestoreFolder) {
   try {
-    const archiveRef = ref(storage, database_collection)
+    const archiveRef = ref(storage, storageFolder)
     const imagesList = await listAll(archiveRef)
 
     const images = await Promise.all(
@@ -23,7 +23,7 @@ export async function fetchImageData(database_collection) {
           // TODO: test case, skip over image if there is no corresponding fileName
           const docRef = doc(
             firestore,
-            'data',
+            firestoreFolder,
             fileName.substring(0, fileName.indexOf('.'))
           )
           const docSnap = await getDoc(docRef)
@@ -50,7 +50,7 @@ export async function fetchImageData(database_collection) {
     return []
   }
 }
-function ImageGallery({ database_collection }) {
+function ImageGallery({ storageFolder, firestoreFolder }) {
   const PAGE_SIZE = 16
   const [imageData, setImageData] = useState([])
   const [selectedName, setSelectedName] = useState(null)
@@ -90,7 +90,7 @@ function ImageGallery({ database_collection }) {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const images = await fetchImageData(database_collection)
+        const images = await fetchImageData(storageFolder, firestoreFolder)
         setImageData(images)
       } catch (error) {
         console.error('Error fetching images from Firebase Storage:', error)
