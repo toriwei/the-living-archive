@@ -117,7 +117,7 @@ export default function SubmissionPage() {
     <div className='gap-y-8	flex flex-col px-4 md:px-0 text-english-violet'>
       <h2 className='text-5xl font-bold'>Submit an Item</h2>
       <form
-        className='gap-y-8 flex flex-col'
+        className='gap-y-8 flex flex-col text-lg'
         onSubmit={handleSubmit}
         noValidate
       >
@@ -125,33 +125,36 @@ export default function SubmissionPage() {
           <h3 className='text-3xl font-bold'>Contributor</h3>
           <div>
             <label htmlFor='name' className='block'>
-              Name:
+              Name
             </label>
             <input
+              required
               type='text'
               id='name'
               value={responses.name}
               onChange={handleChange}
               className='border border-english-violet px-2 py-1 rounded-md'
             />
-          </div>
-          <div>
-            <label htmlFor='displayName' className='block'>
-              Display Name?
-            </label>
-            <input
-              type='checkbox'
-              id='displayName'
-              checked={responses.displayName}
-              onChange={handleChange}
-              className='w-4 h-4 cursor-pointer'
-            />
+            <div className='flex items-center gap-x-2 mt-1'>
+              <input
+                type='checkbox'
+                id='displayName'
+                checked={responses.displayName}
+                onChange={handleChange}
+                className='w-4 h-4 cursor-pointer'
+              />
+              <label htmlFor='displayName' className='text-base'>
+                I would like my name to be displayed alongside the record.{' '}
+                <span className='text-sm'>(optional)</span>
+              </label>
+            </div>
           </div>
           <div>
             <label htmlFor='email' className='block'>
-              Email:
+              Email
             </label>
             <input
+              required
               type='text'
               id='email'
               value={responses.email}
@@ -164,22 +167,25 @@ export default function SubmissionPage() {
           <h3 className='text-3xl font-bold'>Item</h3>
           <div>
             <label htmlFor='file' className='block'>
-              Upload File (JPG/JPEG/PDF):
+              Upload File
             </label>
             <input
+              required
               ref={fileInputRef}
               type='file'
               id='file'
-              accept='.jpg, .jpeg, .pdf' // Specify accepted file types
+              accept='.jpg, .jpeg'
               onChange={handleChange}
               className='border border-english-violet px-2 py-1 rounded-md'
             />
+            <p className='mt-1 text-base'>JPG or JPEG only</p>
           </div>
           <div>
             <label htmlFor='title' className='block'>
-              Title:
+              Title
             </label>
             <input
+              required
               type='text'
               id='title'
               value={responses.title}
@@ -189,7 +195,7 @@ export default function SubmissionPage() {
           </div>
           <div>
             <label htmlFor='date' className='block'>
-              Date (DD/MM/YYYY or YYYY):
+              Date <span className='text-sm'>(optional)</span>
             </label>
             <input
               type='text'
@@ -199,10 +205,11 @@ export default function SubmissionPage() {
               maxLength={10}
               className='border border-english-violet px-2 py-1 rounded-md'
             />
+            <p className='mt-1 text-base'>DD/MM/YYYY or YYYY format</p>
           </div>
           <div>
             <label htmlFor='description' className='block'>
-              Description:
+              Description <span className='text-sm'>(optional)</span>
             </label>
             <textarea
               id='description'
@@ -214,7 +221,7 @@ export default function SubmissionPage() {
           </div>
           <div>
             <label htmlFor='tags' className='block'>
-              Tags:
+              Tags/Keywords <span className='text-sm'>(optional)</span>
             </label>
             <input
               type='text'
@@ -223,10 +230,13 @@ export default function SubmissionPage() {
               onChange={handleChange}
               className='border border-english-violet px-2 py-1 rounded-md'
             />
+            <p className='mt-1 text-base'>
+              Separate by comma (ex: student life, clubs and organizations)
+            </p>
           </div>
           <div>
             <label htmlFor='author' className='block'>
-              Author/Creator:
+              Author/Creator <span className='text-sm'>(optional)</span>
             </label>
             <input
               type='text'
@@ -238,7 +248,7 @@ export default function SubmissionPage() {
           </div>
           <div>
             <label htmlFor='format' className='block'>
-              Format:
+              Format <span className='text-sm'>(optional)</span>
             </label>
             <input
               type='text'
@@ -247,10 +257,13 @@ export default function SubmissionPage() {
               onChange={handleChange}
               className='border border-english-violet px-2 py-1 rounded-md'
             />
+            <p className='mt-1 text-base'>
+              Ex: Yearbook, Newspaper, Art, Photo
+            </p>
           </div>
           <div>
             <label htmlFor='location' className='block'>
-              LMU Location:
+              LMU Location <span className='text-sm'>(optional)</span>
             </label>
             <input
               type='text'
@@ -262,7 +275,8 @@ export default function SubmissionPage() {
           </div>
           <div>
             <label htmlFor='notes' className='block'>
-              Notes/Additional Information:
+              Notes/Additional Information{' '}
+              <span className='text-sm'>(optional)</span>
             </label>
             <input
               type='text'
@@ -271,26 +285,41 @@ export default function SubmissionPage() {
               onChange={handleChange}
               className='border border-english-violet px-2 py-1 rounded-md'
             />
+            <p className='mt-1 text-base'>
+              Information only for the The Living Archive team
+            </p>
           </div>
         </div>
 
         <div className='permissions flex flex-col gap-y-4'>
           <h3 className='text-3xl font-bold'>Permissions</h3>
           <div>
-            <label htmlFor='displayName' className='block'>
-              Give permission?
-            </label>
-            <input
-              type='checkbox'
-              id='permission'
-              checked={responses.permission}
-              onChange={handleChange}
-              className='w-4 h-4 cursor-pointer'
-            />
+            <p>
+              By submitting this form, I grant permission to have this record be
+              considered for inclusion within The Living Archive. . I understand
+              that my submission may also be utilized for various exhibitions,
+              including, but not limited to, social media, presentations, and
+              displays across varying mediums. I retain ownership of the
+              submitted content but give The Living Archive permission to use,
+              distribute, and display the submitted materials.
+            </p>
+            <div className='flex items-center gap-x-2 mt-1'>
+              <input
+                required
+                type='checkbox'
+                id='permission'
+                checked={responses.permission}
+                onChange={handleChange}
+                className='w-4 h-4 cursor-pointer'
+              />
+              <label htmlFor='displayName' className='block'>
+                I agree
+              </label>
+            </div>
           </div>
           <button
             type='submit'
-            className='bg-english-violet text-white text-center	w-48 px-8 py-2 rounded-md'
+            className='bg-english-violet text-white text-center	w-48 mt-4 px-8 py-2 rounded-md'
           >
             Submit
           </button>
