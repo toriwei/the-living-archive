@@ -1,8 +1,8 @@
 'use client'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { storage, firestore } from '../firebase/firebaseConfig'
 import { ref, uploadBytesResumable } from 'firebase/storage'
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, addDoc, collection } from 'firebase/firestore'
 
 export default function SubmissionPage() {
   const initialState = {
@@ -23,7 +23,9 @@ export default function SubmissionPage() {
     generatedFileName: '',
   }
   const [responses, setResponses] = useState(initialState)
+  const [errors, setErrors] = useState({})
   const fileInputRef = useRef(null)
+  const [submitting, setSubmitting] = useState(false)
 
   const generateFileName = (title) => {
     let fileName = 'US_'
@@ -40,6 +42,35 @@ export default function SubmissionPage() {
     }
     fileName += extension
     return fileName
+  }
+
+  const validateRequiredValues = () => {
+    const newErrors = {} // Create a new object to hold errors
+
+    if (responses.email === '') {
+      newErrors.email = 'required'
+    } else if (!responses.email.includes('@')) {
+      newErrors.email = 'Must enter valid email address'
+    }
+
+    if (responses.name === '') {
+      newErrors.name = 'required'
+    }
+
+    if (responses.file === null) {
+      newErrors.file = 'required'
+    }
+
+    if (responses.title === '') {
+      newErrors.title = 'required'
+    }
+
+    if (responses.permission === false) {
+      newErrors.permission = 'Must accept agreement'
+    }
+
+    setErrors(newErrors) // Set the new errors
+    return newErrors // Return the new errors object
   }
 
   const handleChange = (e) => {
@@ -78,7 +109,11 @@ export default function SubmissionPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setErrors(validateRequiredValues())
+    setSubmitting(true)
+  }
 
+  const finishSubmit = async (e) => {
     // storage upload
     if (responses.file) {
       const storageRef = ref(
@@ -87,7 +122,7 @@ export default function SubmissionPage() {
       )
       try {
         await uploadBytesResumable(storageRef, responses.file)
-        console.log('File uploaded successfully')
+        console.log('File uploaded to Storage successfully')
       } catch (error) {
         console.error('Error uploading file:', error)
         return
@@ -103,6 +138,7 @@ export default function SubmissionPage() {
     try {
       const docRef = doc(firestore, 'submission_data', docName)
       await setDoc(docRef, dataToUpload)
+
       console.log('Data uploaded to Firestore successfully')
     } catch (error) {
       console.error('Error uploading data to Firestore:', error)
@@ -113,6 +149,13 @@ export default function SubmissionPage() {
     fileInputRef.current.value = null
     setResponses(initialState)
   }
+
+  useEffect(() => {
+    if (Object.keys(errors).length === 0 && submitting) {
+      finishSubmit()
+    }
+  }, [errors])
+
   return (
     <div className='gap-y-8	flex flex-col px-4 md:px-0 text-english-violet'>
       <h2 className='text-5xl font-bold'>Submit an Item</h2>
@@ -135,19 +178,22 @@ export default function SubmissionPage() {
               onChange={handleChange}
               className='border border-english-violet px-2 py-1 rounded-md'
             />
-            <div className='flex items-center gap-x-2 mt-1'>
-              <input
-                type='checkbox'
-                id='displayName'
-                checked={responses.displayName}
-                onChange={handleChange}
-                className='w-4 h-4 cursor-pointer'
-              />
-              <label htmlFor='displayName' className='text-base'>
-                I would like my name to be displayed alongside the record.{' '}
-                <span className='text-sm'>(optional)</span>
-              </label>
-            </div>
+            {errors.name ? (
+              <p className='text-rose text-sm'>{errors.name}</p>
+            ) : null}
+          </div>
+          <div className='flex items-center gap-x-2 mt-1'>
+            <input
+              type='checkbox'
+              id='displayName'
+              checked={responses.displayName}
+              onChange={handleChange}
+              className='w-4 h-4 cursor-pointer'
+            />
+            <label htmlFor='displayName' className='text-base'>
+              I would like my name to be displayed alongside the record{' '}
+              <span className='text-sm'>(optional)</span>
+            </label>
           </div>
           <div>
             <label htmlFor='email' className='block'>
@@ -161,6 +207,9 @@ export default function SubmissionPage() {
               onChange={handleChange}
               className='border border-english-violet px-2 py-1 rounded-md'
             />
+            {errors.email ? (
+              <p className='text-rose text-sm'>{errors.email}</p>
+            ) : null}
           </div>
         </div>
         <div className='item flex flex-col gap-y-4'>
@@ -179,6 +228,9 @@ export default function SubmissionPage() {
               className='border border-english-violet px-2 py-1 rounded-md'
             />
             <p className='mt-1 text-base'>JPG or JPEG only</p>
+            {errors.file ? (
+              <p className='text-rose text-sm'>{errors.file}</p>
+            ) : null}
           </div>
           <div>
             <label htmlFor='title' className='block'>
@@ -192,6 +244,9 @@ export default function SubmissionPage() {
               onChange={handleChange}
               className='border border-english-violet px-2 py-1 rounded-md'
             />
+            {errors.title ? (
+              <p className='text-rose text-sm text-sm'>{errors.title}</p>
+            ) : null}
           </div>
           <div>
             <label htmlFor='date' className='block'>
@@ -312,10 +367,13 @@ export default function SubmissionPage() {
                 onChange={handleChange}
                 className='w-4 h-4 cursor-pointer'
               />
-              <label htmlFor='displayName' className='block'>
+              <label htmlFor='permission' className='block'>
                 I agree
               </label>
             </div>
+            {errors.permission ? (
+              <p className='text-rose text-sm'>{errors.permission}</p>
+            ) : null}
           </div>
           <button
             type='submit'
@@ -323,6 +381,13 @@ export default function SubmissionPage() {
           >
             Submit
           </button>
+          {Object.keys(errors).length !== 0 ? (
+            <p className='text-rose'>Please enter all required fields</p>
+          ) : submitting ? (
+            <span className='text-rose'>
+              Successfully submitted. Thank you!
+            </span>
+          ) : null}
         </div>
       </form>
     </div>
