@@ -26,6 +26,7 @@ export default function SubmissionPage() {
   const [errors, setErrors] = useState({})
   const fileInputRef = useRef(null)
   const [submitting, setSubmitting] = useState(false)
+  const MISSING_REQUIREMENT_ERROR = 'required'
 
   const generateFileName = (title) => {
     let fileName = 'US_'
@@ -45,32 +46,34 @@ export default function SubmissionPage() {
   }
 
   const validateRequiredValues = () => {
-    const newErrors = {} // Create a new object to hold errors
+    const submissionErrors = {}
 
     if (responses.email === '') {
-      newErrors.email = 'required'
-    } else if (!responses.email.includes('@')) {
-      newErrors.email = 'Must enter valid email address'
+      submissionErrors.missingEmail = MISSING_REQUIREMENT_ERROR
+    }
+
+    if (responses.email.length !== 0 && !responses.email.includes('@')) {
+      submissionErrors.invalidEmail = 'Must enter valid email address'
     }
 
     if (responses.name === '') {
-      newErrors.name = 'required'
+      submissionErrors.name = MISSING_REQUIREMENT_ERROR
     }
 
     if (responses.file === null) {
-      newErrors.file = 'required'
+      submissionErrors.file = MISSING_REQUIREMENT_ERROR
     }
 
     if (responses.title === '') {
-      newErrors.title = 'required'
+      submissionErrors.title = MISSING_REQUIREMENT_ERROR
     }
 
     if (responses.permission === false) {
-      newErrors.permission = 'Must accept agreement'
+      submissionErrors.permission = 'Must accept agreement'
     }
 
-    setErrors(newErrors) // Set the new errors
-    return newErrors // Return the new errors object
+    setErrors(submissionErrors)
+    return submissionErrors
   }
 
   const handleChange = (e) => {
@@ -168,7 +171,10 @@ export default function SubmissionPage() {
           <h3 className='text-3xl font-bold'>Contributor</h3>
           <div>
             <label htmlFor='name' className='block'>
-              Name
+              Name{' '}
+              {errors.name && (
+                <span className='text-rose text-sm'> {errors.name}</span>
+              )}
             </label>
             <input
               required
@@ -176,11 +182,10 @@ export default function SubmissionPage() {
               id='name'
               value={responses.name}
               onChange={handleChange}
-              className='border border-english-violet px-2 py-1 rounded-md'
+              className={`border ${
+                errors.name ? 'border-rose' : 'border-english-violet'
+              } px-2 py-1 rounded-md`}
             />
-            {errors.name ? (
-              <p className='text-rose text-sm'>{errors.name}</p>
-            ) : null}
           </div>
           <div className='flex items-center gap-x-2 mt-1'>
             <input
@@ -188,7 +193,7 @@ export default function SubmissionPage() {
               id='displayName'
               checked={responses.displayName}
               onChange={handleChange}
-              className='w-4 h-4 cursor-pointer'
+              className='accent-english-violet w-4 h-4 cursor-pointer'
             />
             <label htmlFor='displayName' className='text-base'>
               I would like my name to be displayed alongside the record{' '}
@@ -197,7 +202,10 @@ export default function SubmissionPage() {
           </div>
           <div>
             <label htmlFor='email' className='block'>
-              Email
+              Email{' '}
+              {errors.missingEmail && (
+                <span className='text-rose text-sm'>{errors.missingEmail}</span>
+              )}
             </label>
             <input
               required
@@ -205,18 +213,25 @@ export default function SubmissionPage() {
               id='email'
               value={responses.email}
               onChange={handleChange}
-              className='border border-english-violet px-2 py-1 rounded-md'
+              className={`border ${
+                errors.name ? 'border-rose' : 'border-english-violet'
+              } px-2 py-1 rounded-md`}
             />
-            {errors.email ? (
-              <p className='text-rose text-sm'>{errors.email}</p>
-            ) : null}
+            {errors.invalidEmail && (
+              <span className='block text-rose text-sm'>
+                {errors.invalidEmail}
+              </span>
+            )}
           </div>
         </div>
         <div className='item flex flex-col gap-y-4'>
           <h3 className='text-3xl font-bold'>Item</h3>
           <div>
             <label htmlFor='file' className='block'>
-              Upload File
+              Upload File{' '}
+              {errors.file && (
+                <span className='text-rose text-sm'>{errors.file}</span>
+              )}
             </label>
             <input
               required
@@ -225,16 +240,18 @@ export default function SubmissionPage() {
               id='file'
               accept='.jpg, .jpeg'
               onChange={handleChange}
-              className='border border-english-violet px-2 py-1 rounded-md'
+              className={`border ${
+                errors.name ? 'border-rose' : 'border-english-violet'
+              } px-2 py-1 rounded-md`}
             />
             <p className='mt-1 text-base'>JPG or JPEG only</p>
-            {errors.file ? (
-              <p className='text-rose text-sm'>{errors.file}</p>
-            ) : null}
           </div>
           <div>
             <label htmlFor='title' className='block'>
-              Title
+              Title{' '}
+              {errors.title && (
+                <span className='text-rose text-sm'>{errors.title}</span>
+              )}
             </label>
             <input
               required
@@ -242,11 +259,10 @@ export default function SubmissionPage() {
               id='title'
               value={responses.title}
               onChange={handleChange}
-              className='border border-english-violet px-2 py-1 rounded-md'
+              className={`border ${
+                errors.name ? 'border-rose' : 'border-english-violet'
+              } px-2 py-1 rounded-md`}
             />
-            {errors.title ? (
-              <p className='text-rose text-sm text-sm'>{errors.title}</p>
-            ) : null}
           </div>
           <div>
             <label htmlFor='date' className='block'>
@@ -351,29 +367,31 @@ export default function SubmissionPage() {
           <div>
             <p>
               By submitting this form, I grant permission to have this record be
-              considered for inclusion within The Living Archive. . I understand
-              that my submission may also be utilized for various exhibitions,
-              including, but not limited to, social media, presentations, and
-              displays across varying mediums. I retain ownership of the
-              submitted content but give The Living Archive permission to use,
-              distribute, and display the submitted materials.
+              considered for inclusion for The Living Archive. I understand that
+              my submission may be utilized for other displays, including, but
+              not limited to, social media, presentations, and other
+              exhibitions. I retain ownership of the submitted content but give
+              The Living Archive permission to use and distribute the submitted
+              materials.
             </p>
-            <div className='flex items-center gap-x-2 mt-1'>
-              <input
-                required
-                type='checkbox'
-                id='permission'
-                checked={responses.permission}
-                onChange={handleChange}
-                className='w-4 h-4 cursor-pointer'
-              />
-              <label htmlFor='permission' className='block'>
-                I agree
-              </label>
+            <div>
+              <div className='flex items-center gap-x-2 mt-1'>
+                <input
+                  required
+                  type='checkbox'
+                  id='permission'
+                  checked={responses.permission}
+                  onChange={handleChange}
+                  className='accent-english-violet w-4 h-4 cursor-pointer'
+                />
+                <label htmlFor='permission' className='block'>
+                  I agree
+                </label>
+              </div>
+              {errors.permission && (
+                <span className='text-rose text-sm'>{errors.permission}</span>
+              )}
             </div>
-            {errors.permission ? (
-              <p className='text-rose text-sm'>{errors.permission}</p>
-            ) : null}
           </div>
           <button
             type='submit'
