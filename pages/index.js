@@ -73,13 +73,10 @@ export default function Home() {
                     About
                   </a>
                 </li>
-                <hr className='pb-4 fill-english-violet' />
-
+                <hr className='mb-4 hidden sm:block border-1 border-english-violet' />
                 <li className='pb-4'>
                   <a
-                    onClick={() => {
-                      setPageView('SubmissionPage')
-                    }}
+                    onClick={() => setPageView('SubmissionPage')}
                     href='#submit'
                     className='hover:text-rose'
                   >
@@ -88,9 +85,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    onClick={() => {
-                      setPageView('AdminPage')
-                    }}
+                    onClick={() => setPageView('AdminPage')}
                     href='#admin'
                     className='hover:text-rose'
                   >
