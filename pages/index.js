@@ -8,6 +8,11 @@ import AdminPage from './AdminPage.js'
 export default function Home() {
   const [isPastGallery, setIsPastGallery] = useState(false)
   const [pageView, setPageView] = useState('MainView')
+  const [showLinks, setShowLinks] = useState(false)
+
+  const toggleLinks = () => {
+    setShowLinks(!showLinks)
+  }
 
   const handleMainViewLink = () => {
     pageView !== 'MainView' ? setPageView('MainView') : ''
@@ -28,24 +33,38 @@ export default function Home() {
 
   return (
     <div>
-      <div className='flex md:flex-row flex-col'>
+      <div className='flex md:flex-row flex-col relative'>
         <aside
-          className={`md:ml-6 pt-6 md:pt-12 flex flex-row items-end md:items-start md:flex-col justify-between md:justify-start md:h-screen top-0 md:w-1/6 text-english-violet text-lg px-4 md:px-2 sticky z-50 ${
+          className={`md:ml-6 pt-6 md:pt-12 flex items-end md:items-start md:flex-col justify-between md:justify-start md:h-screen top-0 md:w-1/6 text-lg px-4 md:px-2 sticky z-50 md:bg-white md:text-english-violet ${
             isPastGallery
               ? 'bg-english-violet text-white'
               : 'bg-white text-english-violet'
-          } md:bg-white md:text-english-violet`}
+          } `}
         >
-          <div className='flex md:flex-col flex-row md:justify-content'>
+          <div>
             <h2 className='text-xl md:text-3xl font-bold md:mx-auto pb-4 md:pb-0'>
               THE LIVING
               <br />
               ARCHIVE
             </h2>
           </div>
-          <div className='flex flex-col justify-center h-full'>
-            <nav className='flex flex-col font-bold text-md md:text-2xl'>
-              <ul className='flex flex-row md:flex-col md:mx-auto md:gap-x-0 gap-x-8'>
+          <div className='flex justify-center'>
+            <nav className='font-bold text-md md:text-2xl'>
+              <button
+                onClick={toggleLinks}
+                className={`md:hidden text-lg px-4 py-2 my-4 ml-4 rounded-md ${
+                  isPastGallery
+                    ? 'text-english-violet bg-white'
+                    : 'text-white bg-english-violet'
+                }`}
+              >
+                More
+              </button>
+              <ul
+                className={`flex flex-col md:mx-auto md:gap-x-0 gap-x-8 ${
+                  showLinks ? '' : 'hidden'
+                } text-english-violet absolute md:relative bg-white p-4 md:p-0 left-0 right-0 md:flex top-full z-40`}
+              >
                 <li className='pb-4'>
                   <a
                     onClick={handleMainViewLink}
@@ -73,13 +92,10 @@ export default function Home() {
                     About
                   </a>
                 </li>
-                <hr className='pb-4 fill-english-violet' />
-
+                <hr className='mb-4 hidden md:block border-1 border-english-violet' />
                 <li className='pb-4'>
                   <a
-                    onClick={() => {
-                      setPageView('SubmissionPage')
-                    }}
+                    onClick={() => setPageView('SubmissionPage')}
                     href='#submit'
                     className='hover:text-rose'
                   >
@@ -88,9 +104,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    onClick={() => {
-                      setPageView('AdminPage')
-                    }}
+                    onClick={() => setPageView('AdminPage')}
                     href='#admin'
                     className='hover:text-rose'
                   >
