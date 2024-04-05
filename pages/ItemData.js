@@ -8,31 +8,32 @@ function ItemData({ data }) {
   }
 
   function displayData() {
-    let newObj = {}
     let itemData = data.obj
-    switch (itemData.source_type) {
-      case 'Newspapers':
-        newObj = {
-          Title: itemData.title,
-          Date: itemData.date,
-          Page: itemData.page,
-          Location: itemData.LMU_location,
-          Section: itemData.section,
-        }
-        break
-      case 'Yearbooks':
-        newObj = {
-          Title: itemData.title,
-          Date: itemData.date,
-          Page: itemData.page,
-          Location: itemData.LMU_location,
-          Description: itemData.description,
-        }
-        break
-    }
+    let newObj = {}
+    const keys = [
+      'title',
+      'date',
+      'page',
+      'LMU_location',
+      'description',
+      'format',
+      'tags',
+    ]
+
+    keys.forEach((key) => {
+      const formattedKey =
+        key.charAt(0).toUpperCase() + key.slice(1).toLowerCase()
+      if (key === 'LMU_location') {
+        newObj['Location'] = itemData[key] || null
+      } else if (key === 'tags') {
+        newObj[formattedKey] = itemData[key] ? itemData[key].join(' ') : null
+      } else {
+        newObj[formattedKey] = itemData[key] || null
+      }
+    })
 
     const elements = Object.keys(newObj).map((key) => {
-      if (key !== 'Title' && newObj[key] !== undefined) {
+      if (key !== 'Title' && newObj[key] !== null) {
         return (
           <p key={key}>
             <span>{key}:</span> <span>{newObj[key]}</span>
@@ -51,7 +52,7 @@ function ItemData({ data }) {
   }
   return (
     <div>
-      <div className='content'>{displayData()}</div>
+      <div className='text-black content'>{displayData()}</div>
     </div>
   )
 }
