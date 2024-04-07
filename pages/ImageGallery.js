@@ -177,7 +177,7 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
       <div className='flex flex-col md:flex-row w-full'>
         <div className='pb-4 md:pb-8 flex flex-grow items-center'>
           <input
-            className='block w-1/2 p-4 ps-5 sm:pr-24 pr-0 font-semibold text-english-violet border border-gray-300 border-r-0 rounded-l-lg outline-english-violet'
+            className='block w-1/2 p-4 ps-5 sm:pr-24 pr-0 font-semibold text-english-violet border border-gray-300 border-r-0 rounded-l-md outline-english-violet'
             type='text'
             placeholder='Search'
             value={searchQueryTemp}
@@ -185,7 +185,7 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
             onKeyDown={handleKeyPress}
           />
           <button
-            className='p-4 font-semibold text-white bg-english-violet border border-english-violet rounded-r-lg flex items-center'
+            className='p-4 font-semibold text-white bg-english-violet border border-english-violet rounded-r-md flex items-center'
             onClick={handleSearch}
           >
             <svg
@@ -206,36 +206,39 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
           </button>
         </div>
 
-        <Pagination
-          currentPage={currentPage}
-          handlePageChange={handlePageChange}
-          numberPages={numberPages}
-          isCurrentPage={isCurrentPage}
-          className='flex-end'
-        />
+        {currentImages.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            handlePageChange={handlePageChange}
+            numberPages={numberPages}
+            isCurrentPage={isCurrentPage}
+            className='flex-end'
+          />
+        )}
       </div>
 
       <div className='grid md:grid-cols-4 grid-cols-2 gap-4 items-start'>
-        {currentImages.map((image, index) => (
-          <div
-            key={`gallery-${index}`}
-            className='relative align-baseline flex flex-col'
-          >
+        {currentImages.length > 0 &&
+          currentImages.map((image, index) => (
             <div
-              key={image.fileName}
-              className='relative flex flex-col justify-end h-[20vh] md:h-[50vh]'
+              key={`gallery-${index}`}
+              className='relative align-baseline flex flex-col'
             >
-              <img
-                className='relative archiveItem object-contain max-w-full max-h-full cursor-pointer'
-                key={index}
-                src={image.url}
-                alt={`Image ${index}`}
-                onClick={() => openModal(image.url, index)}
-              />
+              <div
+                key={image.fileName}
+                className='relative flex flex-col justify-end h-[20vh] md:h-[50vh]'
+              >
+                <img
+                  className='relative archiveItem object-contain max-w-full max-h-full cursor-pointer'
+                  key={index}
+                  src={image.url}
+                  alt={`Image ${index}`}
+                  onClick={() => openModal(image.url, index)}
+                />
+              </div>
+              <span className='mt-2 text-center'>{image.title}</span>
             </div>
-            <span className='mt-2 text-center'>{image.title}</span>
-          </div>
-        ))}
+          ))}
       </div>
 
       {isModalOpen && (
@@ -248,12 +251,14 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
         />
       )}
 
-      <Pagination
-        currentPage={currentPage}
-        handlePageChange={handlePageChange}
-        numberPages={numberPages}
-        isCurrentPage={isCurrentPage}
-      />
+      {currentImages.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+          numberPages={numberPages}
+          isCurrentPage={isCurrentPage}
+        />
+      )}
     </div>
   )
 }

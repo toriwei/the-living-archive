@@ -7,7 +7,6 @@ function Modal({
   imageData,
   currentIndex,
   onClose,
-  file,
   onMarkerChange,
   isGalleryRecord,
 }) {

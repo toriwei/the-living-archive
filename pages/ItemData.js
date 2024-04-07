@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 function ItemData({ data, isGalleryRecord }) {
   if (!data || !data.obj) {
@@ -46,8 +46,9 @@ function ItemData({ data, isGalleryRecord }) {
         : null
       newObj['Email'] = itemData.email
       newObj['Notes'] = itemData.notes || null
+      console.log(`itemData.adminApproval: ${itemData.adminApproval}`)
       switch (itemData.adminApproval) {
-        case null:
+        case 'pending':
           newObj['Status'] = 'Pending'
           break
         case true:
