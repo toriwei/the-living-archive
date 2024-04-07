@@ -46,24 +46,20 @@ function ItemData({ data, isGalleryRecord }) {
         : null
       newObj['Email'] = itemData.email
       newObj['Notes'] = itemData.notes || null
+      switch (itemData.adminApproval) {
+        case null:
+          newObj['Status'] = 'Pending'
+          break
+        case true:
+          newObj['Status'] = 'Accepted'
+          break
+        case false:
+          newObj['Status'] = 'Denied'
+          break
+        default:
+          break
+      }
     }
-
-    // const elements = Object.keys(newObj).map((key) => {
-    //   if (key === 'Tags') {
-    //     console.log(newObj[key])
-    //   }
-    //   const keyStyles = key === 'Tags' ? 'text-white bg-blue-500' : '' // Add Tailwind classes for blue text color
-
-    //   if (key !== 'Title' && newObj[key] !== null) {
-    //     return (
-    //       <p key={key}>
-    //         <span>{key}:</span>{' '}
-    //         <span className={`${keyStyles}`}>{newObj[key]}</span>
-    //       </p>
-    //     )
-    //   }
-    //   return null
-    // })
 
     const elements = Object.keys(newObj).map((key) => {
       if (key !== 'Tags' && key !== 'Title' && newObj[key] !== null) {

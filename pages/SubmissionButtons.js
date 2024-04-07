@@ -22,13 +22,23 @@ export default function SubmissionButtons(data) {
       const snapshot = await getDoc(submissionDataRef)
 
       if (snapshot.exists()) {
-        const submissionData = snapshot.data()
+        let submissionData = snapshot.data()
         const newDataRef = doc(firestore, 'data', docName)
+
+        submissionData = {
+          ...submissionData,
+          adminApproval: true,
+        }
 
         // firestore doc exists, so upload image
         await uploadBytes(archivesRef, blob)
         console.log('Image copied to public archive successfully')
 
+        // Update adminApproval in submission_data
+        await setDoc(submissionDataRef, submissionData, { merge: true })
+        console.log('adminApproval set to true in submission_data')
+
+        // Upload data to public archive with updated adminApproval
         await setDoc(newDataRef, submissionData)
         console.log('Data copied to public archive successfully')
       } else {

@@ -18,7 +18,7 @@ export default function SubmissionPage() {
     LMU_location: '',
     notes: '',
     permission: false,
-    adminApproval: false,
+    adminApproval: null,
     file: null,
     generatedFileName: '',
   }
