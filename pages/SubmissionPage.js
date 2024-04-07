@@ -15,7 +15,7 @@ export default function SubmissionPage() {
     tags: [],
     author: '',
     format: '',
-    location: '',
+    LMU_location: '',
     notes: '',
     permission: false,
     adminApproval: false,
@@ -333,13 +333,13 @@ export default function SubmissionPage() {
             </p>
           </div>
           <div>
-            <label htmlFor='location' className='block'>
+            <label htmlFor='LMU_location' className='block'>
               LMU Location <span className='text-sm'>(optional)</span>
             </label>
             <input
               type='text'
-              id='location'
-              value={responses.location}
+              id='LMU_location'
+              value={responses.LMU_location}
               onChange={handleChange}
               className='border border-english-violet px-2 py-1 rounded-md'
             />

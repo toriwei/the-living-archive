@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import ItemData from './ItemData'
 import FullscreenImage from './FullscreenImage'
+import SubmissionButtons from './SubmissionButtons'
 
-function Modal({ imageData, currentIndex, onClose, file, onMarkerChange }) {
+function Modal({
+  imageData,
+  currentIndex,
+  onClose,
+  file,
+  onMarkerChange,
+  isGalleryRecord,
+}) {
   if (!imageData || imageData.length === 0) {
     return <div>Loading...</div>
   }
@@ -66,8 +74,16 @@ function Modal({ imageData, currentIndex, onClose, file, onMarkerChange }) {
               &#8250;
             </span>
           </div>
-          <div className='content pl-4 pr-10 w-1/2 overflow-auto'>
-            <ItemData data={imageData[currentImageIndex]} />
+          <div className='flex flex-col content pl-4 pr-10 w-1/2 h-full overflow-auto'>
+            <div>
+              <ItemData
+                data={imageData[currentImageIndex]}
+                isGalleryRecord={isGalleryRecord}
+              />
+            </div>
+            {!isGalleryRecord && (
+              <SubmissionButtons imageData={imageData[currentImageIndex]} />
+            )}
           </div>
         </div>
       </div>
