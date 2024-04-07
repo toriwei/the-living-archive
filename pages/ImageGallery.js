@@ -58,6 +58,7 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const [statusFilter, setStatusFilter] = useState('pending')
   const scrollRef = useRef(null)
 
   function openModal(fileName, index) {
@@ -101,11 +102,22 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
   }, [])
 
   // Filter images based on the search query in any property of image.obj
-  const filteredImages = imageData.filter((image) =>
-    Object.values(image.obj).some((value) =>
+  const filteredImages = imageData.filter((image) => {
+    const includesSearchQuery = Object.values(image.obj).some((value) =>
       value.toString().toLowerCase().includes(searchQuery.toLowerCase())
     )
-  )
+    if (!isGalleryRecord) {
+      return (
+        includesSearchQuery &&
+        (statusFilter === 'all' ||
+          (statusFilter === 'pending'
+            ? image.obj.adminApproval === 'pending'
+            : image.obj.adminApproval.toString() === statusFilter))
+      )
+    } else {
+      return includesSearchQuery
+    }
+  })
 
   const indexOfLastRecord = currentPage * PAGE_SIZE
   const indexOfFirstRecord = indexOfLastRecord - PAGE_SIZE
@@ -126,6 +138,42 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
   const isCurrentPage = (pageIndex) => pageIndex === currentPage
   return (
     <div className='pt-12 pl-12 pr-12' ref={scrollRef}>
+      {!isGalleryRecord && (
+        <div className='flex items-center gap-x-4 mb-4 font-bold text-lg'>
+          <button
+            className={`${
+              statusFilter === 'pending' ? 'text-rose' : 'text-gray-600'
+            }`}
+            onClick={() => setStatusFilter('pending')}
+          >
+            Pending
+          </button>
+          <button
+            className={`${
+              statusFilter === 'all' ? 'text-rose' : 'text-gray-600'
+            }`}
+            onClick={() => setStatusFilter('all')}
+          >
+            All
+          </button>
+          <button
+            className={`${
+              statusFilter === 'true' ? 'text-rose' : 'text-gray-600'
+            }`}
+            onClick={() => setStatusFilter('true')}
+          >
+            Accepted
+          </button>
+          <button
+            className={`${
+              statusFilter === 'false' ? 'text-rose' : 'text-gray-600'
+            }`}
+            onClick={() => setStatusFilter('false')}
+          >
+            Denied
+          </button>
+        </div>
+      )}
       <div className='flex flex-col md:flex-row w-full'>
         <div className='pb-4 md:pb-8 flex flex-grow items-center'>
           <input
@@ -157,6 +205,7 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
             </svg>
           </button>
         </div>
+
         <Pagination
           currentPage={currentPage}
           handlePageChange={handlePageChange}
