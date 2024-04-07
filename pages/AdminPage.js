@@ -23,6 +23,7 @@ export default function AdminPage() {
         <ImageGallery
           storageFolder='submission_archive'
           firestoreFolder='submission_data'
+          isGalleryRecord={false}
         />
       )}
     </div>

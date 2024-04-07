@@ -50,7 +50,7 @@ export async function fetchImageData(storageFolder, firestoreFolder) {
     return []
   }
 }
-function ImageGallery({ storageFolder, firestoreFolder }) {
+function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
   const PAGE_SIZE = 16
   const [imageData, setImageData] = useState([])
   const [selectedName, setSelectedName] = useState(null)
@@ -195,6 +195,7 @@ function ImageGallery({ storageFolder, firestoreFolder }) {
           currentIndex={selectedImageIndex}
           onClose={closeModal}
           file={selectedName}
+          isGalleryRecord={isGalleryRecord}
         />
       )}
 
