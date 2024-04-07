@@ -163,6 +163,7 @@ export default function CampusMap() {
             onClose={() => handleMarkerClose()}
             file={image.fileName}
             onMarkerChange={(position) => setSelectedMarkerPosition(position)}
+            isGalleryRecord={true}
           />
         )}
       </GoogleMap>
