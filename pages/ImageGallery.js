@@ -58,6 +58,7 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const [statusFilter, setStatusFilter] = useState('pending')
   const scrollRef = useRef(null)
 
   function openModal(fileName, index) {
@@ -101,11 +102,22 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
   }, [])
 
   // Filter images based on the search query in any property of image.obj
-  const filteredImages = imageData.filter((image) =>
-    Object.values(image.obj).some((value) =>
+  const filteredImages = imageData.filter((image) => {
+    const includesSearchQuery = Object.values(image.obj).some((value) =>
       value.toString().toLowerCase().includes(searchQuery.toLowerCase())
     )
-  )
+    if (!isGalleryRecord) {
+      return (
+        includesSearchQuery &&
+        (statusFilter === 'all' ||
+          (statusFilter === 'pending'
+            ? image.obj.adminApproval === 'pending'
+            : image.obj.adminApproval.toString() === statusFilter))
+      )
+    } else {
+      return includesSearchQuery
+    }
+  })
 
   const indexOfLastRecord = currentPage * PAGE_SIZE
   const indexOfFirstRecord = indexOfLastRecord - PAGE_SIZE
@@ -126,10 +138,46 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
   const isCurrentPage = (pageIndex) => pageIndex === currentPage
   return (
     <div className='pt-12 pl-12 pr-12' ref={scrollRef}>
+      {!isGalleryRecord && (
+        <div className='flex items-center gap-x-4 mb-4 font-bold text-lg'>
+          <button
+            className={`${
+              statusFilter === 'pending' ? 'text-rose' : 'text-gray-600'
+            }`}
+            onClick={() => setStatusFilter('pending')}
+          >
+            Pending
+          </button>
+          <button
+            className={`${
+              statusFilter === 'all' ? 'text-rose' : 'text-gray-600'
+            }`}
+            onClick={() => setStatusFilter('all')}
+          >
+            All
+          </button>
+          <button
+            className={`${
+              statusFilter === 'true' ? 'text-rose' : 'text-gray-600'
+            }`}
+            onClick={() => setStatusFilter('true')}
+          >
+            Accepted
+          </button>
+          <button
+            className={`${
+              statusFilter === 'false' ? 'text-rose' : 'text-gray-600'
+            }`}
+            onClick={() => setStatusFilter('false')}
+          >
+            Denied
+          </button>
+        </div>
+      )}
       <div className='flex flex-col md:flex-row w-full'>
         <div className='pb-4 md:pb-8 flex flex-grow items-center'>
           <input
-            className='block w-1/2 p-4 ps-5 sm:pr-24 pr-0 font-semibold text-english-violet border border-gray-300 border-r-0 rounded-l-lg outline-english-violet'
+            className='block w-1/2 p-4 ps-5 sm:pr-24 pr-0 font-semibold text-english-violet border border-gray-300 border-r-0 rounded-l-md outline-english-violet'
             type='text'
             placeholder='Search'
             value={searchQueryTemp}
@@ -137,7 +185,7 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
             onKeyDown={handleKeyPress}
           />
           <button
-            className='p-4 font-semibold text-white bg-english-violet border border-english-violet rounded-r-lg flex items-center'
+            className='p-4 font-semibold text-white bg-english-violet border border-english-violet rounded-r-md flex items-center'
             onClick={handleSearch}
           >
             <svg
@@ -157,36 +205,40 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
             </svg>
           </button>
         </div>
-        <Pagination
-          currentPage={currentPage}
-          handlePageChange={handlePageChange}
-          numberPages={numberPages}
-          isCurrentPage={isCurrentPage}
-          className='flex-end'
-        />
+
+        {currentImages.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            handlePageChange={handlePageChange}
+            numberPages={numberPages}
+            isCurrentPage={isCurrentPage}
+            className='flex-end'
+          />
+        )}
       </div>
 
       <div className='grid md:grid-cols-4 grid-cols-2 gap-4 items-start'>
-        {currentImages.map((image, index) => (
-          <div
-            key={`gallery-${index}`}
-            className='relative align-baseline flex flex-col'
-          >
+        {currentImages.length > 0 &&
+          currentImages.map((image, index) => (
             <div
-              key={image.fileName}
-              className='relative flex flex-col justify-end h-[20vh] md:h-[50vh]'
+              key={`gallery-${index}`}
+              className='relative align-baseline flex flex-col'
             >
-              <img
-                className='relative archiveItem object-contain max-w-full max-h-full cursor-pointer'
-                key={index}
-                src={image.url}
-                alt={`Image ${index}`}
-                onClick={() => openModal(image.url, index)}
-              />
+              <div
+                key={image.fileName}
+                className='relative flex flex-col justify-end h-[20vh] md:h-[50vh]'
+              >
+                <img
+                  className='relative archiveItem object-contain max-w-full max-h-full cursor-pointer'
+                  key={index}
+                  src={image.url}
+                  alt={`Image ${index}`}
+                  onClick={() => openModal(image.url, index)}
+                />
+              </div>
+              <span className='mt-2 text-center'>{image.title}</span>
             </div>
-            <span className='mt-2 text-center'>{image.title}</span>
-          </div>
-        ))}
+          ))}
       </div>
 
       {isModalOpen && (
@@ -199,12 +251,14 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
         />
       )}
 
-      <Pagination
-        currentPage={currentPage}
-        handlePageChange={handlePageChange}
-        numberPages={numberPages}
-        isCurrentPage={isCurrentPage}
-      />
+      {currentImages.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+          numberPages={numberPages}
+          isCurrentPage={isCurrentPage}
+        />
+      )}
     </div>
   )
 }
