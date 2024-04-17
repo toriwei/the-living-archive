@@ -5,10 +5,7 @@ function InfoWindowContent({ image }) {
     return <div>Loading...</div>
   }
 
-  const header =
-    image.obj.source_type === 'Yearbooks'
-      ? `${image.title} Yearbook p.${image.obj.page}`
-      : image.title
+  const header = (image.obj.source_type = image.title)
 
   const imageAttributes = [
     { label: 'Date', content: image.obj.date },

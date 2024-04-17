@@ -27,9 +27,8 @@ export default function CampusMap() {
 
   const svgMarker = {
     path: MAP_MARKER,
-    // fillColor: '#BA68C8',
     fillOpacity: 1,
-    strokeColor: '#AB47BC',
+    strokeColor: '#564169',
     anchor: { x: 12, y: 24 },
     scale: 1.5,
   }
@@ -78,22 +77,16 @@ export default function CampusMap() {
   useEffect(() => {
     const locationData = async () => {
       const images = await fetchImageData('archive', 'data')
-      // console.log(images)
-
       const validMarkers = images.filter(
         (image) =>
           image.obj.hasOwnProperty('lat') && image.obj.hasOwnProperty('long')
       )
-      // console.log('MARKERS', validMarkers)
-
       const groupedMarkers = validMarkers.reduce((acc, image) => {
         const location = image.obj.LMU_location || 'none'
         acc[location] = acc[location] || []
         acc[location].push(image)
         return acc
       }, {})
-
-      // console.log('group', groupedMarkers)
 
       const adjustedMarkers = Object.values(groupedMarkers).flatMap(
         (cluster) => {
@@ -142,7 +135,7 @@ export default function CampusMap() {
                 onMouseOut={() => setHoveredMarker(null)}
                 icon={{
                   ...svgMarker,
-                  fillColor: hoveredMarker === image ? 'pink' : '#BA68C8',
+                  fillColor: hoveredMarker === image ? '#D1236C' : '#564169',
                 }}
               >
                 {hoveredMarker === image && (

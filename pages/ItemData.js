@@ -12,6 +12,7 @@ function ItemData({ data, isGalleryRecord }) {
     let newObj = {}
     const keys = [
       'title',
+      'source_name',
       'date',
       'page',
       'LMU_location',
@@ -28,6 +29,8 @@ function ItemData({ data, isGalleryRecord }) {
       } else if (key === 'tags') {
         newObj[formattedKey] =
           itemData[key].length > 0 ? itemData[key].join(', ') : null
+      } else if (key === 'source_name') {
+        newObj['Source'] = itemData[key] || null
       } else {
         newObj[formattedKey] = itemData[key] || null
       }
@@ -46,7 +49,6 @@ function ItemData({ data, isGalleryRecord }) {
         : null
       newObj['Email'] = itemData.email
       newObj['Notes'] = itemData.notes || null
-      console.log(`itemData.adminApproval: ${itemData.adminApproval}`)
       switch (itemData.adminApproval) {
         case 'pending':
           newObj['Status'] = 'Pending'

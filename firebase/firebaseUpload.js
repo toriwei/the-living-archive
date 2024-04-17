@@ -1,88 +1,112 @@
-// NOTE: if object is updated so that a specific attribute is no longer being
-// used, it must be manually deleted from firebase
-const data = require('./archiveMetadata.json')
+const fs = require('fs')
 const db = require('./firebaseAdminConfig')
 const axios = require('axios')
-const collectionRef = db.collection('data') // Firestore collection name
+const collectionRef = db.collection('data')
+const apiKey = process.env.GOOGLE_API_KEY
+const apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json'
+const LMU_PLACE_ID = 'ChIJr6RajZewwoARb8XnfwwGyho'
+const IGNATIAN_CIRCLE_PLACE_ID = 'ChIJH48hJpawwoARkwNTHX-iLnM'
+
+const dataFileName = process.argv[2]
+
+if (!dataFileName) {
+  console.error(
+    'Error: Please provide the data file name as a command-line argument.'
+  )
+  process.exit(1)
+}
+
+if (!fs.existsSync(dataFileName)) {
+  console.error(`Error: File '${dataFileName}' not found.`)
+  process.exit(1)
+}
+
+const data = require(`./${dataFileName}`)
+
 async function addDataToFirestore(data) {
   for (const key in data) {
-    let newData = data[key]
-    const documentID = key // image title (ex: Loyolan_9_16_1992)
+    let dataObject = data[key]
+    const dataObjectID = key // image title (ex: Loyolan_9_16_1992)
 
-    // Check if the document already exists
-    const docRef = collectionRef.doc(documentID)
+    const docRef = collectionRef.doc(dataObjectID)
     const docSnapshot = await docRef.get()
 
     if (!docSnapshot.exists) {
-      await docRef.set(newData)
-      console.log(`Data ADDED for ${documentID} successfully`)
-    } else {
-      const existingData = docSnapshot.data()
-      if (!deepEquals(existingData, newData)) {
-        // Call the Geocoding API to set the latitude and longitude for
-        // items that have an LMU location associated with them
-        if (newData.hasOwnProperty('LMU_location')) {
-          // TO DO: currently resets lat/long and newData every time existingData != newData
-          // but should only reset if the lat/long is not there or needs to be updated
-          newData = await setLatitudeAndLongitude(newData)
+      if (dataObject.hasOwnProperty('LMU_location')) {
+        let coordinates = await setLatitudeAndLongitude(dataObject.LMU_location)
+        dataObject = {
+          ...dataObject,
+          lat: coordinates.lat,
+          long: coordinates.long,
         }
-
-        await docRef.update(newData)
-        console.log(`Data UPDATED for ${documentID}`)
-      } else {
-        console.log(`Data SAME for ${documentID}. No updated made.`)
       }
+      await docRef.set(dataObject)
+      console.log(`Data ADDED for ${dataObjectID} successfully`)
+    } else if (
+      dataObject.hasOwnProperty('LMU_location') &&
+      (!dataObject.hasOwnProperty('lat') || !dataObject.hasOwnProperty('long'))
+    ) {
+      let coordinates = await setLatitudeAndLongitude(dataObject.LMU_location)
+      dataObject = {
+        ...dataObject,
+        lat: coordinates.lat,
+        long: coordinates.long,
+      }
+      await docRef.update(dataObject)
+      console.log(`Data UPDATED for ${dataObjectID} successfully`)
     }
   }
 }
 
-function deepEquals(existingData, newData) {
-  if (existingData === null && newData === null) {
-    return true // Both are null, consider them equal
-  }
+async function setLatitudeAndLongitude(location) {
+  if ('LMU_location' === 'Alumni Mall') {
+    console.log(`Location (Alumni Mall) ADDED successfully`)
+    return { lat: 33.970765, long: -118.416646 }
+  } else {
+    if (location === "St. Robert's Auditorium") {
+      location = "St. Robert's Hall"
+    }
 
-  if (typeof existingData !== 'object' || typeof newData !== 'object') {
-    return existingData === newData // Handle non-object comparison
-  }
+    let response = await getCoordinates(location, 'Loyola Marymount University')
+    let initial_place_id = response.place_id
+    if (initial_place_id === LMU_PLACE_ID) {
+      // address is 1 LMU Drive, need to find more accurate location
+      // test if location is on Ignatian Circle
+      let secondResponse = await getCoordinates(location, 'Ignatian Cir')
+      let second_place_id = secondResponse.place_id
 
-  const existingKeys = Object.keys(existingData)
-  const newKeys = Object.keys(newData)
+      // more accurate location is found if second location is not also 1 LMU Drive
+      // and also not the generic Ignatian Circle address
+      if (
+        initial_place_id !== second_place_id &&
+        second_place_id !== IGNATIAN_CIRCLE_PLACE_ID
+      ) {
+        response = secondResponse
+      }
+    }
 
-  if (existingKeys.length !== newKeys.length) {
-    return false // Different number of keys, not equal
-  }
-
-  return existingKeys.every((key) =>
-    deepEquals(existingData[key], newData[key])
-  )
-}
-
-async function setLatitudeAndLongitude(newData) {
-  const apiKey = process.env.GOOGLE_API_KEY
-  const apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json'
-
-  try {
-    const response = await axios.get(apiUrl, {
-      params: {
-        address: `${newData.LMU_location}, Loyola Marymount University`,
-        key: apiKey,
-      },
-    })
-
-    const result = response.data.results[0]
-    if (result) {
-      const { lat, lng } = result.geometry.location
-      newData.lat = lat
-      newData.long = lng
-      // console.log(result)
-      // console.log(lat)
-      // console.log(lng)
-      return newData
+    if (response) {
+      const { lat, lng } = response.geometry.location
+      console.log(`Location (${location}) ADDED successfully`)
+      return { lat: lat, long: lng }
     } else {
       console.log('Unable to retrieve coordinates')
     }
+  }
+}
+
+async function getCoordinates(submittedLocation, universityLocation) {
+  try {
+    const response = await axios.get(apiUrl, {
+      params: {
+        address: `${submittedLocation}, ${universityLocation}`,
+        key: apiKey,
+      },
+    })
+    return response.data.results[0]
   } catch (error) {
-    console.error(error)
+    console.error('Error fetching coordinates:', error)
+    return null
   }
 }
 

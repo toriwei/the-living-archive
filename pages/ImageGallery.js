@@ -29,6 +29,10 @@ export async function fetchImageData(storageFolder, firestoreFolder) {
           const docSnap = await getDoc(docRef)
           const itemData = docSnap.data()
 
+          if (itemData == undefined) {
+            console.log(fileName)
+          }
+
           return {
             url,
             fileName,
@@ -226,7 +230,7 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
             >
               <div
                 key={image.fileName}
-                className='relative flex flex-col justify-end h-[20vh] md:h-[50vh]'
+                className='relative flex flex-col justify-end h-[20vh] md:h-[40vh]'
               >
                 <img
                   className='relative archiveItem object-contain max-w-full max-h-full cursor-pointer'
