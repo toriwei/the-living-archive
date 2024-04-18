@@ -125,9 +125,9 @@ export default function Home() {
                 EXPLORING LGBTQ+ HISTORY AT LMU
               </h2>
               <h3 className='pt-4 text-white'>
-                Discover queer stories as seen in the Loyola Marymount
-                University records. The Living Archive serves as a platform to
-                amplify voices and experiences of typically overlooked groups in
+                Discover queer stories from the Loyola Marymount University
+                records and crowd-sourced submissions. The Living Archive serves
+                to amplify the voices of historically underrepresented groups in
                 the LMU community.
               </h3>
             </div>

@@ -240,7 +240,7 @@ export default function SubmissionPage() {
               id='file'
               accept='.jpg, .jpeg'
               onChange={handleChange}
-              className={`border ${
+              className={`w-full sm:w-auto border ${
                 errors.name ? 'border-rose' : 'border-english-violet'
               } px-2 py-1 rounded-md`}
             />
