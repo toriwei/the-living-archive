@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 // Read JSON data from file
-const inputJson = JSON.parse(fs.readFileSync('./newInput.json', 'utf-8'))
+const inputJson = JSON.parse(fs.readFileSync('./metadata.json', 'utf-8'))
 
 function restructureAndFilter(jsonArray) {
   const restructuredObject = {}

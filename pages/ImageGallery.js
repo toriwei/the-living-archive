@@ -29,8 +29,9 @@ export async function fetchImageData(storageFolder, firestoreFolder) {
           const docSnap = await getDoc(docRef)
           const itemData = docSnap.data()
 
-          if (itemData == undefined) {
-            console.log(fileName)
+          if (!itemData || !itemData.title) {
+            console.log('Skipping image:', fileName)
+            return null
           }
 
           return {
@@ -41,12 +42,27 @@ export async function fetchImageData(storageFolder, firestoreFolder) {
           }
         })
     )
-    const imageOrder = images.sort((a, b) => {
-      if (new Date(a.obj.date) - new Date(b.obj.date) !== 0) {
-        return new Date(a.obj.date) - new Date(b.obj.date)
-      }
-      return a.obj.page - b.obj.page
-    })
+
+    const imageOrder = images
+      .filter((image) => image !== null && image.obj !== null)
+      .sort((a, b) => {
+        // Check if both images have dates
+        if (a.obj.date && b.obj.date) {
+          const dateDifference = new Date(a.obj.date) - new Date(b.obj.date)
+          if (dateDifference !== 0) {
+            return dateDifference
+          }
+        } else if (!a.obj.date && b.obj.date) {
+          // If only a has null date, it should come after b
+          return 1
+        } else if (a.obj.date && !b.obj.date) {
+          // If only b has null date, it should come before a
+          return -1
+        }
+
+        // If both dates are null or equal, sort by page
+        return a.obj.page - b.obj.page
+      })
 
     return imageOrder
   } catch (error) {
@@ -96,7 +112,9 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
     const fetchImages = async () => {
       try {
         const images = await fetchImageData(storageFolder, firestoreFolder)
-        setImageData(images)
+        // Filter out null values
+        const filteredImages = images.filter((image) => image !== null)
+        setImageData(filteredImages)
       } catch (error) {
         console.error('Error fetching images from Firebase Storage:', error)
       }
@@ -240,7 +258,17 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
                   onClick={() => openModal(image.url, index)}
                 />
               </div>
-              <span className='mt-2 text-center'>{image.title}</span>
+              <span className='mt-2 text-center'>
+                {image.obj.date
+                  ? `${image.title} (${
+                      typeof image.obj.date === 'string' &&
+                      image.obj.date.includes('/')
+                        ? image.obj.date.split('/').pop()
+                        : image.obj.date
+                    })`
+                  : image.title}
+              </span>
+              {console.log(image)}
             </div>
           ))}
       </div>

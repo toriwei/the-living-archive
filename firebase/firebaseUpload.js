@@ -25,73 +25,84 @@ const data = require(`./${dataFileName}`)
 
 async function addDataToFirestore(data) {
   for (const key in data) {
-    let dataObject = data[key]
-    const dataObjectID = key // image title (ex: Loyolan_9_16_1992)
+    try {
+      let dataObject = data[key]
+      const dataObjectID = key // image title (ex: Loyolan_9_16_1992)
 
-    const docRef = collectionRef.doc(dataObjectID)
-    const docSnapshot = await docRef.get()
+      const docRef = collectionRef.doc(dataObjectID)
+      const docSnapshot = await docRef.get()
 
-    if (!docSnapshot.exists) {
-      if (dataObject.hasOwnProperty('LMU_location')) {
+      if (!docSnapshot.exists) {
+        if (dataObject.hasOwnProperty('LMU_location')) {
+          let coordinates = await setLatitudeAndLongitude(
+            dataObject.LMU_location
+          )
+          dataObject = {
+            ...dataObject,
+            lat: coordinates.lat,
+            long: coordinates.long,
+          }
+        }
+        await docRef.set(dataObject)
+        console.log(`Data ADDED for ${dataObjectID} successfully`)
+      } else if (
+        dataObject.hasOwnProperty('LMU_location') &&
+        (!dataObject.hasOwnProperty('lat') ||
+          !dataObject.hasOwnProperty('long'))
+      ) {
         let coordinates = await setLatitudeAndLongitude(dataObject.LMU_location)
         dataObject = {
           ...dataObject,
           lat: coordinates.lat,
           long: coordinates.long,
         }
+        await docRef.update(dataObject)
+        console.log(`Data UPDATED for ${dataObjectID} successfully`)
       }
-      await docRef.set(dataObject)
-      console.log(`Data ADDED for ${dataObjectID} successfully`)
-    } else if (
-      dataObject.hasOwnProperty('LMU_location') &&
-      (!dataObject.hasOwnProperty('lat') || !dataObject.hasOwnProperty('long'))
-    ) {
-      let coordinates = await setLatitudeAndLongitude(dataObject.LMU_location)
-      dataObject = {
-        ...dataObject,
-        lat: coordinates.lat,
-        long: coordinates.long,
-      }
-      await docRef.update(dataObject)
-      console.log(`Data UPDATED for ${dataObjectID} successfully`)
+    } catch (error) {
+      console.error('Error:', error.message)
     }
   }
 }
 
 async function setLatitudeAndLongitude(location) {
-  if ('LMU_location' === 'Alumni Mall') {
-    console.log(`Location (Alumni Mall) ADDED successfully`)
-    return { lat: 33.970765, long: -118.416646 }
-  } else {
-    if (location === "St. Robert's Auditorium") {
-      location = "St. Robert's Hall"
-    }
-
-    let response = await getCoordinates(location, 'Loyola Marymount University')
-    let initial_place_id = response.place_id
-    if (initial_place_id === LMU_PLACE_ID) {
-      // address is 1 LMU Drive, need to find more accurate location
-      // test if location is on Ignatian Circle
-      let secondResponse = await getCoordinates(location, 'Ignatian Cir')
-      let second_place_id = secondResponse.place_id
-
-      // more accurate location is found if second location is not also 1 LMU Drive
-      // and also not the generic Ignatian Circle address
-      if (
-        initial_place_id !== second_place_id &&
-        second_place_id !== IGNATIAN_CIRCLE_PLACE_ID
-      ) {
-        response = secondResponse
+  try {
+    if ('LMU_location' === 'Alumni Mall') {
+      console.log(`Location (Alumni Mall) ADDED successfully`)
+      return { lat: 33.970765, long: -118.416646 }
+    } else {
+      if (location === "St. Robert's Auditorium") {
+        location = "St. Robert's Hall"
       }
-    }
 
-    if (response) {
+      let response = await getCoordinates(
+        location,
+        'Loyola Marymount University'
+      )
+
+      if (!response || !response.geometry || !response.geometry.location) {
+        throw new Error('Unable to retrieve coordinates')
+      }
+
+      let initial_place_id = response.place_id
+      if (initial_place_id === LMU_PLACE_ID) {
+        let secondResponse = await getCoordinates(location, 'Ignatian Cir')
+        let second_place_id = secondResponse.place_id
+        if (
+          initial_place_id !== second_place_id &&
+          second_place_id !== IGNATIAN_CIRCLE_PLACE_ID
+        ) {
+          response = secondResponse
+        }
+      }
+
       const { lat, lng } = response.geometry.location
       console.log(`Location (${location}) ADDED successfully`)
       return { lat: lat, long: lng }
-    } else {
-      console.log('Unable to retrieve coordinates')
     }
+  } catch (error) {
+    console.error('Error:', error.message)
+    return null // Return null or any default value to indicate failure
   }
 }
 
