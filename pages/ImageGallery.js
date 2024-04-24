@@ -108,21 +108,21 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
     }
   }
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const images = await fetchImageData(storageFolder, firestoreFolder)
-        // Filter out null values
-        const filteredImages = images.filter((image) => image !== null)
-        setImageData(filteredImages)
-      } catch (error) {
-        console.error('Error fetching images from Firebase Storage:', error)
-      }
+  const fetchImages = async () => {
+    try {
+      const images = await fetchImageData(storageFolder, firestoreFolder)
+      // Filter out null values
+      const filteredImages = images.filter((image) => image !== null)
+      setImageData(filteredImages)
+    } catch (error) {
+      console.error('Error fetching images from Firebase Storage:', error)
     }
+  }
 
+  useEffect(() => {
+    console.log('hello')
     fetchImages()
-  }, [])
-
+  }, [currentPage]) // Fetch images whenever the currentPage changes
   // Filter images based on the search query in any property of image.obj
   const filteredImages = imageData.filter((image) => {
     const includesSearchQuery = Object.values(image.obj).some((value) =>
@@ -268,7 +268,6 @@ function ImageGallery({ storageFolder, firestoreFolder, isGalleryRecord }) {
                     })`
                   : image.title}
               </span>
-              {console.log(image)}
             </div>
           ))}
       </div>
