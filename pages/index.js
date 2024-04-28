@@ -118,11 +118,11 @@ export default function Home() {
         <main className='md:mt-12 md:w-5/6 mb-24'>
           <div
             id='banner'
-            className='bg-english-violet flex flex-col md:flex-row mb-12 h-1/12 w-auto'
+            className='bg-english-violet flex flex-col md:flex-row mb-12 h-1/12 w-auto items-end'
           >
             <div className='flex-1 p-8'>
-              <h2 className='lg:text-5xl md:text-3xl text-2xl font-bold text-white lg:pt-36 md:pt-24'>
-                EXPLORING LGBTQ+ HISTORY AT LMU
+              <h2 className='lg:text-5xl md:text-3xl text-2xl font-bold text-white lg:pt-36 md:pt-24 items-end'>
+                EXPLORING QUEER HISTORY AT LMU
               </h2>
               <h3 className='pt-4 text-white'>
                 Discover queer stories from the Loyola Marymount University
